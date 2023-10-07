@@ -16,6 +16,12 @@
 		D5D07D512AD1D5DB008BE5B8 /* TrackVigorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D502AD1D5DB008BE5B8 /* TrackVigorTests.swift */; };
 		D5D07D5B2AD1D5DB008BE5B8 /* TrackVigorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D5A2AD1D5DB008BE5B8 /* TrackVigorUITests.swift */; };
 		D5D07D5D2AD1D5DB008BE5B8 /* TrackVigorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D5C2AD1D5DB008BE5B8 /* TrackVigorUITestsLaunchTests.swift */; };
+		D5D07D772AD1DD3A008BE5B8 /* Tabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D762AD1DD3A008BE5B8 /* Tabbar.swift */; };
+		D5D07D7A2AD1DEE1008BE5B8 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D792AD1DEE1008BE5B8 /* WorkoutView.swift */; };
+		D5D07D7C2AD1E013008BE5B8 /* WorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D7B2AD1E013008BE5B8 /* WorkoutModel.swift */; };
+		D5D07D802AD1E4DE008BE5B8 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D7F2AD1E4DE008BE5B8 /* StatisticsView.swift */; };
+		D5D07D832AD1E4F3008BE5B8 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D822AD1E4F3008BE5B8 /* HistoryView.swift */; };
+		D5D07D852AD1E69B008BE5B8 /* ProfileSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D842AD1E69B008BE5B8 /* ProfileSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +54,12 @@
 		D5D07D562AD1D5DB008BE5B8 /* TrackVigorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackVigorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D07D5A2AD1D5DB008BE5B8 /* TrackVigorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackVigorUITests.swift; sourceTree = "<group>"; };
 		D5D07D5C2AD1D5DB008BE5B8 /* TrackVigorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackVigorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D5D07D762AD1DD3A008BE5B8 /* Tabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabbar.swift; sourceTree = "<group>"; };
+		D5D07D792AD1DEE1008BE5B8 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
+		D5D07D7B2AD1E013008BE5B8 /* WorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModel.swift; sourceTree = "<group>"; };
+		D5D07D7F2AD1E4DE008BE5B8 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		D5D07D822AD1E4F3008BE5B8 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		D5D07D842AD1E69B008BE5B8 /* ProfileSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,9 +110,15 @@
 		D5D07D392AD1D5D6008BE5B8 /* TrackVigor */ = {
 			isa = PBXGroup;
 			children = (
+				D5D07D752AD1DD27008BE5B8 /* Navigation */,
+				D5D07D6E2AD1DCE8008BE5B8 /* View */,
+				D5D07D6D2AD1DCE1008BE5B8 /* Model */,
+				D5D07D6C2AD1DCDA008BE5B8 /* ViewModel */,
+				D5D07D6B2AD1DCCE008BE5B8 /* Extension */,
+				D5D07D6A2AD1DCC5008BE5B8 /* Managers */,
+				D5D07D692AD1DCBB008BE5B8 /* Resources */,
 				D5D07D3A2AD1D5D6008BE5B8 /* TrackVigorApp.swift */,
 				D5D07D3C2AD1D5D6008BE5B8 /* ContentView.swift */,
-				D5D07D3E2AD1D5DA008BE5B8 /* Assets.xcassets */,
 				D5D07D432AD1D5DA008BE5B8 /* Persistence.swift */,
 				D5D07D452AD1D5DA008BE5B8 /* TrackVigor.xcdatamodeld */,
 				D5D07D402AD1D5DA008BE5B8 /* Preview Content */,
@@ -131,6 +149,126 @@
 				D5D07D5C2AD1D5DB008BE5B8 /* TrackVigorUITestsLaunchTests.swift */,
 			);
 			path = TrackVigorUITests;
+			sourceTree = "<group>";
+		};
+		D5D07D692AD1DCBB008BE5B8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D5D07D3E2AD1D5DA008BE5B8 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D5D07D6A2AD1DCC5008BE5B8 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		D5D07D6B2AD1DCCE008BE5B8 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		D5D07D6C2AD1DCDA008BE5B8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D5D07D6D2AD1DCE1008BE5B8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D5D07D7B2AD1E013008BE5B8 /* WorkoutModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D5D07D6E2AD1DCE8008BE5B8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D5D07D732AD1DD0D008BE5B8 /* Screens */,
+				D5D07D722AD1DD07008BE5B8 /* Loading */,
+				D5D07D712AD1DD00008BE5B8 /* Detail */,
+				D5D07D702AD1DCF5008BE5B8 /* EmptyVIew */,
+				D5D07D6F2AD1DCF0008BE5B8 /* Sheets */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D5D07D6F2AD1DCF0008BE5B8 /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				D5D07D842AD1E69B008BE5B8 /* ProfileSheet.swift */,
+			);
+			path = Sheets;
+			sourceTree = "<group>";
+		};
+		D5D07D702AD1DCF5008BE5B8 /* EmptyVIew */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EmptyVIew;
+			sourceTree = "<group>";
+		};
+		D5D07D712AD1DD00008BE5B8 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		D5D07D722AD1DD07008BE5B8 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
+		D5D07D732AD1DD0D008BE5B8 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				D5D07D7E2AD1E4C9008BE5B8 /* Statistics */,
+				D5D07D7D2AD1E4C1008BE5B8 /* History */,
+				D5D07D782AD1DED1008BE5B8 /* Workout */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		D5D07D752AD1DD27008BE5B8 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				D5D07D762AD1DD3A008BE5B8 /* Tabbar.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		D5D07D782AD1DED1008BE5B8 /* Workout */ = {
+			isa = PBXGroup;
+			children = (
+				D5D07D792AD1DEE1008BE5B8 /* WorkoutView.swift */,
+			);
+			path = Workout;
+			sourceTree = "<group>";
+		};
+		D5D07D7D2AD1E4C1008BE5B8 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				D5D07D822AD1E4F3008BE5B8 /* HistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		D5D07D7E2AD1E4C9008BE5B8 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				D5D07D7F2AD1E4DE008BE5B8 /* StatisticsView.swift */,
+			);
+			path = Statistics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,10 +401,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5D07D832AD1E4F3008BE5B8 /* HistoryView.swift in Sources */,
 				D5D07D442AD1D5DA008BE5B8 /* Persistence.swift in Sources */,
+				D5D07D772AD1DD3A008BE5B8 /* Tabbar.swift in Sources */,
 				D5D07D3D2AD1D5D6008BE5B8 /* ContentView.swift in Sources */,
+				D5D07D7C2AD1E013008BE5B8 /* WorkoutModel.swift in Sources */,
 				D5D07D3B2AD1D5D6008BE5B8 /* TrackVigorApp.swift in Sources */,
+				D5D07D802AD1E4DE008BE5B8 /* StatisticsView.swift in Sources */,
+				D5D07D7A2AD1DEE1008BE5B8 /* WorkoutView.swift in Sources */,
 				D5D07D472AD1D5DA008BE5B8 /* TrackVigor.xcdatamodeld in Sources */,
+				D5D07D852AD1E69B008BE5B8 /* ProfileSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

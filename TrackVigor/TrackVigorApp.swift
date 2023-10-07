@@ -13,8 +13,8 @@ struct TrackVigorApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            Tabbar()
+               // .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
