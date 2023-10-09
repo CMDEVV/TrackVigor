@@ -41,8 +41,8 @@ struct WorkoutView: View {
                     }
                     .sheet(isPresented: $profileSheet){
                         ProfileSheet()
-                            .presentationDetents([.medium])
-                            .presentationDragIndicator(.visible)
+//                            .presentationDetents([.medium])
+//                            .presentationDragIndicator(.visible)
                     }
                 }
             }
@@ -118,3 +118,6 @@ struct WorkoutView_Previews: PreviewProvider {
         Tabbar()
     }
 }
+
+
+
