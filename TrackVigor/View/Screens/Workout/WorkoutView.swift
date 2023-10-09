@@ -14,6 +14,7 @@ struct WorkoutView: View {
     
     // Bool Variables
     @State var profileSheet: Bool = false
+    @State var createWorkoutSheet: Bool = false
     // Model Variables
     @State var workoutModel = WorkoutModelList.allWorkouts
     
@@ -21,14 +22,13 @@ struct WorkoutView: View {
     
     var body: some View {
         NavigationStack{
-            ScrollView{
-                VStack{
+                ZStack{
+                    ScrollView{
                     // WorkoutList
                     WorkoutList()
-                    // Create Workout Button
-                    
                 }
-                .padding(15)
+                    // Button
+                    CreateWorkoutButton()
             }
             .navigationTitle("Workout")
             .toolbar{
@@ -64,7 +64,7 @@ struct WorkoutView: View {
                             Image(systemName: "clock")
                                 .imageScale(.medium)
                             
-                            Text("\(workout.timer)")
+                            Text("\(workout.timer)min")
                                 .font(.headline)
                         }
                     }
@@ -81,6 +81,35 @@ struct WorkoutView: View {
             }
             
         }
+        .padding(15)
+    }
+    
+    @ViewBuilder
+    func CreateWorkoutButton() -> some View {
+        VStack{
+            Spacer()
+            HStack{
+                Spacer()
+                
+                Button{
+                    // Open Sheet to create workout
+                    createWorkoutSheet.toggle()
+                }label: {
+                    Image(systemName: "plus")
+                        .imageScale(.large)
+                }
+                .frame(width: 60, height: 60)
+                .background(.blue)
+                .foregroundColor(.white)
+                .cornerRadius(50)
+            }
+            .sheet(isPresented: $createWorkoutSheet){
+                CreateWorkoutSheet()
+            }
+            
+        }
+        .padding(.vertical, 22)
+        .padding(.horizontal, 15)
     }
 }
 

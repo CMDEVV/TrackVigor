@@ -22,6 +22,9 @@
 		D5D07D802AD1E4DE008BE5B8 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D7F2AD1E4DE008BE5B8 /* StatisticsView.swift */; };
 		D5D07D832AD1E4F3008BE5B8 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D822AD1E4F3008BE5B8 /* HistoryView.swift */; };
 		D5D07D852AD1E69B008BE5B8 /* ProfileSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D842AD1E69B008BE5B8 /* ProfileSheet.swift */; };
+		D5D07D872AD2812D008BE5B8 /* WorkoutDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D862AD2812D008BE5B8 /* WorkoutDetailView.swift */; };
+		D5D07D892AD28198008BE5B8 /* CreateWorkoutSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D882AD28198008BE5B8 /* CreateWorkoutSheet.swift */; };
+		D5D07D8B2AD288DC008BE5B8 /* ExerciseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D8A2AD288DC008BE5B8 /* ExerciseModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D50AC8682AD28E2600D7F687 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D5D07D372AD1D5D6008BE5B8 /* TrackVigor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackVigor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D07D3A2AD1D5D6008BE5B8 /* TrackVigorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackVigorApp.swift; sourceTree = "<group>"; };
 		D5D07D3C2AD1D5D6008BE5B8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -60,6 +64,9 @@
 		D5D07D7F2AD1E4DE008BE5B8 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		D5D07D822AD1E4F3008BE5B8 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		D5D07D842AD1E69B008BE5B8 /* ProfileSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSheet.swift; sourceTree = "<group>"; };
+		D5D07D862AD2812D008BE5B8 /* WorkoutDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailView.swift; sourceTree = "<group>"; };
+		D5D07D882AD28198008BE5B8 /* CreateWorkoutSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutSheet.swift; sourceTree = "<group>"; };
+		D5D07D8A2AD288DC008BE5B8 /* ExerciseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +94,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D50AC8692AD2975A00D7F687 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
 		D5D07D2E2AD1D5D6008BE5B8 = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +124,7 @@
 		D5D07D392AD1D5D6008BE5B8 /* TrackVigor */ = {
 			isa = PBXGroup;
 			children = (
+				D50AC8682AD28E2600D7F687 /* Info.plist */,
 				D5D07D752AD1DD27008BE5B8 /* Navigation */,
 				D5D07D6E2AD1DCE8008BE5B8 /* View */,
 				D5D07D6D2AD1DCE1008BE5B8 /* Model */,
@@ -184,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				D5D07D7B2AD1E013008BE5B8 /* WorkoutModel.swift */,
+				D5D07D8A2AD288DC008BE5B8 /* ExerciseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -204,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				D5D07D842AD1E69B008BE5B8 /* ProfileSheet.swift */,
+				D5D07D882AD28198008BE5B8 /* CreateWorkoutSheet.swift */,
 			);
 			path = Sheets;
 			sourceTree = "<group>";
@@ -218,6 +235,7 @@
 		D5D07D712AD1DD00008BE5B8 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				D5D07D862AD2812D008BE5B8 /* WorkoutDetailView.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -232,6 +250,7 @@
 		D5D07D732AD1DD0D008BE5B8 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				D50AC8692AD2975A00D7F687 /* LoginView */,
 				D5D07D7E2AD1E4C9008BE5B8 /* Statistics */,
 				D5D07D7D2AD1E4C1008BE5B8 /* History */,
 				D5D07D782AD1DED1008BE5B8 /* Workout */,
@@ -403,10 +422,13 @@
 			files = (
 				D5D07D832AD1E4F3008BE5B8 /* HistoryView.swift in Sources */,
 				D5D07D442AD1D5DA008BE5B8 /* Persistence.swift in Sources */,
+				D5D07D872AD2812D008BE5B8 /* WorkoutDetailView.swift in Sources */,
 				D5D07D772AD1DD3A008BE5B8 /* Tabbar.swift in Sources */,
 				D5D07D3D2AD1D5D6008BE5B8 /* ContentView.swift in Sources */,
+				D5D07D8B2AD288DC008BE5B8 /* ExerciseModel.swift in Sources */,
 				D5D07D7C2AD1E013008BE5B8 /* WorkoutModel.swift in Sources */,
 				D5D07D3B2AD1D5D6008BE5B8 /* TrackVigorApp.swift in Sources */,
+				D5D07D892AD28198008BE5B8 /* CreateWorkoutSheet.swift in Sources */,
 				D5D07D802AD1E4DE008BE5B8 /* StatisticsView.swift in Sources */,
 				D5D07D7A2AD1DEE1008BE5B8 /* WorkoutView.swift in Sources */,
 				D5D07D472AD1D5DA008BE5B8 /* TrackVigor.xcdatamodeld in Sources */,
@@ -572,11 +594,14 @@
 				DEVELOPMENT_TEAM = 896N6WV99N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TrackVigor/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -601,11 +626,14 @@
 				DEVELOPMENT_TEAM = 896N6WV99N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TrackVigor/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
