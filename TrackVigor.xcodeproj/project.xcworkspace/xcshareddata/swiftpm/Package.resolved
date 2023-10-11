@@ -8,6 +8,15 @@
         "branch" : "main",
         "revision" : "66d672f446730661ac13feaefb0039b2bab43591"
       }
+    },
+    {
+      "identity" : "popupview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Mijick/PopupView.git",
+      "state" : {
+        "revision" : "cb84ea72fc35d13a4e9d336f66fb13e0c3930dcc",
+        "version" : "2.1.1"
+      }
     }
   ],
   "version" : 2
