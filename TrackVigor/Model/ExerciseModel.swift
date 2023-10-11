@@ -23,3 +23,5 @@ struct ExerciseModelList{
         ExerciseModel(exercise: "Leg Press", set: 2, lbs: 230, rep: 15),
     ]
 }
+
+

@@ -19,6 +19,7 @@ struct CreateWorkoutSheet: View {
     // Int Variables
     
     // Bool Variables
+    @State var exerciseSheet: Bool = false
     
     // Model Variables
     @State var exerciseList = ExerciseModelList.allExercise
@@ -82,7 +83,7 @@ struct CreateWorkoutSheet: View {
                 
           
                     Button{
-                        
+                        exerciseSheet.toggle()
                     }label: {
                         HStack{
                             Text("Exercise")
@@ -95,6 +96,9 @@ struct CreateWorkoutSheet: View {
                         .cornerRadius(10)
                     }
                     .padding(.trailing, 15)
+                    .sheet(isPresented: $exerciseSheet){
+                        ExerciseSheet()
+                    }
                 
                 
             }
