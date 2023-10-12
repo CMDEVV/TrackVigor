@@ -22,16 +22,18 @@ struct ExerciseBodyPartView: View {
         .navigationTitle(bodyPart)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear{
-            print("bodyPartSel", bodyPart)
+//            print("bodyPartSel", bodyPart)
             getExercise(part: bodyPart)
         }
     }
     @ViewBuilder
     func ExerciseListView() -> some View {
         VStack{
-            ForEach(exerciseBodyPart, id: \.id){ exercise in
+            if exerciseBodyPart.isEmpty{
+                ProgressView("Loading...")
+            }
             
-                 
+            ForEach(exerciseBodyPart, id: \.id){ exercise in
                     VStack(spacing: 13){
                         HStack{
                             Text(exercise.name)

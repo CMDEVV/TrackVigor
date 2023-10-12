@@ -14,6 +14,7 @@ struct TrackVigorApp: App {
     var body: some Scene {
         WindowGroup {
             Tabbar()
+                .implementPopupView()
                // .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

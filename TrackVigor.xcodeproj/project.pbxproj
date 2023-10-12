@@ -14,6 +14,8 @@
 		D50AC8DC2AD6500200D7F687 /* BodyPartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50AC8DB2AD6500200D7F687 /* BodyPartModel.swift */; };
 		D50AC8DF2AD65F5100D7F687 /* ExerciseBodyPartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50AC8DE2AD65F5100D7F687 /* ExerciseBodyPartView.swift */; };
 		D50AC8E22AD6CFC500D7F687 /* MijickPopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D50AC8E12AD6CFC500D7F687 /* MijickPopupView */; };
+		D50AC8F02AD7938200D7F687 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50AC8EF2AD7938200D7F687 /* PopupView.swift */; };
+		D50AC8F32AD82A9500D7F687 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D50AC8F22AD82A9500D7F687 /* SDWebImageSwiftUI */; };
 		D5D07D3B2AD1D5D6008BE5B8 /* TrackVigorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D3A2AD1D5D6008BE5B8 /* TrackVigorApp.swift */; };
 		D5D07D3D2AD1D5D6008BE5B8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D3C2AD1D5D6008BE5B8 /* ContentView.swift */; };
 		D5D07D3F2AD1D5DA008BE5B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5D07D3E2AD1D5DA008BE5B8 /* Assets.xcassets */; };
@@ -59,6 +61,7 @@
 		D50AC8DB2AD6500200D7F687 /* BodyPartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyPartModel.swift; sourceTree = "<group>"; };
 		D50AC8DE2AD65F5100D7F687 /* ExerciseBodyPartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseBodyPartView.swift; sourceTree = "<group>"; };
 		D50AC8E32AD6D06E00D7F687 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		D50AC8EF2AD7938200D7F687 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		D5D07D372AD1D5D6008BE5B8 /* TrackVigor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackVigor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D07D3A2AD1D5D6008BE5B8 /* TrackVigorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackVigorApp.swift; sourceTree = "<group>"; };
 		D5D07D3C2AD1D5D6008BE5B8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -87,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D50AC8F32AD82A9500D7F687 /* SDWebImageSwiftUI in Frameworks */,
 				D50AC8D62AD423BD00D7F687 /* InitialsUI in Frameworks */,
 				D50AC8E22AD6CFC500D7F687 /* MijickPopupView in Frameworks */,
 			);
@@ -122,6 +126,14 @@
 				D50AC8DE2AD65F5100D7F687 /* ExerciseBodyPartView.swift */,
 			);
 			path = BodyPartView;
+			sourceTree = "<group>";
+		};
+		D50AC8EE2AD7935E00D7F687 /* Popups */ = {
+			isa = PBXGroup;
+			children = (
+				D50AC8EF2AD7938200D7F687 /* PopupView.swift */,
+			);
+			path = Popups;
 			sourceTree = "<group>";
 		};
 		D5D07D2E2AD1D5D6008BE5B8 = {
@@ -234,6 +246,7 @@
 		D5D07D6E2AD1DCE8008BE5B8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D50AC8EE2AD7935E00D7F687 /* Popups */,
 				D5D07D732AD1DD0D008BE5B8 /* Screens */,
 				D5D07D722AD1DD07008BE5B8 /* Loading */,
 				D5D07D712AD1DD00008BE5B8 /* Detail */,
@@ -338,6 +351,7 @@
 			packageProductDependencies = (
 				D50AC8D52AD423BD00D7F687 /* InitialsUI */,
 				D50AC8E12AD6CFC500D7F687 /* MijickPopupView */,
+				D50AC8F22AD82A9500D7F687 /* SDWebImageSwiftUI */,
 			);
 			productName = TrackVigor;
 			productReference = D5D07D372AD1D5D6008BE5B8 /* TrackVigor.app */;
@@ -414,6 +428,7 @@
 			packageReferences = (
 				D50AC8D42AD423BD00D7F687 /* XCRemoteSwiftPackageReference "InitialsUI" */,
 				D50AC8E02AD6CFC500D7F687 /* XCRemoteSwiftPackageReference "PopupView" */,
+				D50AC8F12AD82A9500D7F687 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = D5D07D382AD1D5D6008BE5B8 /* Products */;
 			projectDirPath = "";
@@ -459,6 +474,7 @@
 			files = (
 				D5D07D832AD1E4F3008BE5B8 /* HistoryView.swift in Sources */,
 				D5D07D442AD1D5DA008BE5B8 /* Persistence.swift in Sources */,
+				D50AC8F02AD7938200D7F687 /* PopupView.swift in Sources */,
 				D5D07D872AD2812D008BE5B8 /* WorkoutDetailView.swift in Sources */,
 				D50AC8D32AD4213B00D7F687 /* UrlsViewModel.swift in Sources */,
 				D50AC8DA2AD5762600D7F687 /* ExerciseBodyPartModel.swift in Sources */,
@@ -825,6 +841,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		D50AC8F12AD82A9500D7F687 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -837,6 +861,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D50AC8E02AD6CFC500D7F687 /* XCRemoteSwiftPackageReference "PopupView" */;
 			productName = MijickPopupView;
+		};
+		D50AC8F22AD82A9500D7F687 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D50AC8F12AD82A9500D7F687 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 
