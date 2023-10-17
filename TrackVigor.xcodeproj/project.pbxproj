@@ -16,6 +16,10 @@
 		D50AC8E22AD6CFC500D7F687 /* MijickPopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D50AC8E12AD6CFC500D7F687 /* MijickPopupView */; };
 		D50AC8F02AD7938200D7F687 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50AC8EF2AD7938200D7F687 /* PopupView.swift */; };
 		D50AC8F32AD82A9500D7F687 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D50AC8F22AD82A9500D7F687 /* SDWebImageSwiftUI */; };
+		D50AC8F92ADA63BA00D7F687 /* CreateExercise.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D50AC8F72ADA63B900D7F687 /* CreateExercise.xcdatamodeld */; };
+		D50AC8FC2ADA68F900D7F687 /* CreateExercisePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50AC8FB2ADA68F900D7F687 /* CreateExercisePersistence.swift */; };
+		D50AC8FF2ADA749100D7F687 /* Workout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D50AC8FD2ADA749100D7F687 /* Workout.xcdatamodeld */; };
+		D50AC9012ADCCE9A00D7F687 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50AC9002ADCCE9900D7F687 /* Extension.swift */; };
 		D5D07D3B2AD1D5D6008BE5B8 /* TrackVigorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D3A2AD1D5D6008BE5B8 /* TrackVigorApp.swift */; };
 		D5D07D3D2AD1D5D6008BE5B8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D3C2AD1D5D6008BE5B8 /* ContentView.swift */; };
 		D5D07D3F2AD1D5DA008BE5B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5D07D3E2AD1D5DA008BE5B8 /* Assets.xcassets */; };
@@ -62,6 +66,10 @@
 		D50AC8DE2AD65F5100D7F687 /* ExerciseBodyPartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseBodyPartView.swift; sourceTree = "<group>"; };
 		D50AC8E32AD6D06E00D7F687 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		D50AC8EF2AD7938200D7F687 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
+		D50AC8F82ADA63B900D7F687 /* CreateExercise.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CreateExercise.xcdatamodel; sourceTree = "<group>"; };
+		D50AC8FB2ADA68F900D7F687 /* CreateExercisePersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExercisePersistence.swift; sourceTree = "<group>"; };
+		D50AC8FE2ADA749100D7F687 /* Workout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Workout.xcdatamodel; sourceTree = "<group>"; };
+		D50AC9002ADCCE9900D7F687 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D5D07D372AD1D5D6008BE5B8 /* TrackVigor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackVigor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D07D3A2AD1D5D6008BE5B8 /* TrackVigorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackVigorApp.swift; sourceTree = "<group>"; };
 		D5D07D3C2AD1D5D6008BE5B8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -136,6 +144,25 @@
 			path = Popups;
 			sourceTree = "<group>";
 		};
+		D50AC8F62ADA62BE00D7F687 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D5D07D452AD1D5DA008BE5B8 /* TrackVigor.xcdatamodeld */,
+				D50AC8F72ADA63B900D7F687 /* CreateExercise.xcdatamodeld */,
+				D50AC8FD2ADA749100D7F687 /* Workout.xcdatamodeld */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		D50AC8FA2ADA64D900D7F687 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				D50AC8F62ADA62BE00D7F687 /* Data */,
+				D50AC8FB2ADA68F900D7F687 /* CreateExercisePersistence.swift */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
 		D5D07D2E2AD1D5D6008BE5B8 = {
 			isa = PBXGroup;
 			children = (
@@ -160,19 +187,19 @@
 			isa = PBXGroup;
 			children = (
 				D50AC8682AD28E2600D7F687 /* Info.plist */,
-				D5D07D752AD1DD27008BE5B8 /* Navigation */,
-				D5D07D6E2AD1DCE8008BE5B8 /* View */,
-				D5D07D6D2AD1DCE1008BE5B8 /* Model */,
-				D5D07D6C2AD1DCDA008BE5B8 /* ViewModel */,
-				D5D07D6B2AD1DCCE008BE5B8 /* Extension */,
-				D5D07D6A2AD1DCC5008BE5B8 /* Managers */,
-				D5D07D692AD1DCBB008BE5B8 /* Resources */,
-				D5D07D3A2AD1D5D6008BE5B8 /* TrackVigorApp.swift */,
 				D5D07D3C2AD1D5D6008BE5B8 /* ContentView.swift */,
 				D5D07D432AD1D5DA008BE5B8 /* Persistence.swift */,
-				D5D07D452AD1D5DA008BE5B8 /* TrackVigor.xcdatamodeld */,
-				D5D07D402AD1D5DA008BE5B8 /* Preview Content */,
+				D5D07D3A2AD1D5D6008BE5B8 /* TrackVigorApp.swift */,
 				D50AC8E32AD6D06E00D7F687 /* Config.xcconfig */,
+				D50AC8FA2ADA64D900D7F687 /* DataManager */,
+				D5D07D6B2AD1DCCE008BE5B8 /* Extension */,
+				D5D07D6A2AD1DCC5008BE5B8 /* Managers */,
+				D5D07D6D2AD1DCE1008BE5B8 /* Model */,
+				D5D07D752AD1DD27008BE5B8 /* Navigation */,
+				D5D07D402AD1D5DA008BE5B8 /* Preview Content */,
+				D5D07D692AD1DCBB008BE5B8 /* Resources */,
+				D5D07D6E2AD1DCE8008BE5B8 /* View */,
+				D5D07D6C2AD1DCDA008BE5B8 /* ViewModel */,
 			);
 			path = TrackVigor;
 			sourceTree = "<group>";
@@ -220,6 +247,7 @@
 		D5D07D6B2AD1DCCE008BE5B8 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				D50AC9002ADCCE9900D7F687 /* Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -472,6 +500,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D50AC9012ADCCE9A00D7F687 /* Extension.swift in Sources */,
 				D5D07D832AD1E4F3008BE5B8 /* HistoryView.swift in Sources */,
 				D5D07D442AD1D5DA008BE5B8 /* Persistence.swift in Sources */,
 				D50AC8F02AD7938200D7F687 /* PopupView.swift in Sources */,
@@ -479,9 +508,11 @@
 				D50AC8D32AD4213B00D7F687 /* UrlsViewModel.swift in Sources */,
 				D50AC8DA2AD5762600D7F687 /* ExerciseBodyPartModel.swift in Sources */,
 				D50AC8DF2AD65F5100D7F687 /* ExerciseBodyPartView.swift in Sources */,
+				D50AC8F92ADA63BA00D7F687 /* CreateExercise.xcdatamodeld in Sources */,
 				D5D07D772AD1DD3A008BE5B8 /* Tabbar.swift in Sources */,
 				D5D07D3D2AD1D5D6008BE5B8 /* ContentView.swift in Sources */,
 				D5D07D8B2AD288DC008BE5B8 /* ExerciseModel.swift in Sources */,
+				D50AC8FF2ADA749100D7F687 /* Workout.xcdatamodeld in Sources */,
 				D50AC8D82AD5737200D7F687 /* ExerciseSheet.swift in Sources */,
 				D5D07D7C2AD1E013008BE5B8 /* WorkoutModel.swift in Sources */,
 				D5D07D3B2AD1D5D6008BE5B8 /* TrackVigorApp.swift in Sources */,
@@ -491,6 +522,7 @@
 				D5D07D472AD1D5DA008BE5B8 /* TrackVigor.xcdatamodeld in Sources */,
 				D5D07D852AD1E69B008BE5B8 /* ProfileSheet.swift in Sources */,
 				D50AC8DC2AD6500200D7F687 /* BodyPartModel.swift in Sources */,
+				D50AC8FC2ADA68F900D7F687 /* CreateExercisePersistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,6 +902,26 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
+		D50AC8F72ADA63B900D7F687 /* CreateExercise.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D50AC8F82ADA63B900D7F687 /* CreateExercise.xcdatamodel */,
+			);
+			currentVersion = D50AC8F82ADA63B900D7F687 /* CreateExercise.xcdatamodel */;
+			path = CreateExercise.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		D50AC8FD2ADA749100D7F687 /* Workout.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D50AC8FE2ADA749100D7F687 /* Workout.xcdatamodel */,
+			);
+			currentVersion = D50AC8FE2ADA749100D7F687 /* Workout.xcdatamodel */;
+			path = Workout.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		D5D07D452AD1D5DA008BE5B8 /* TrackVigor.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

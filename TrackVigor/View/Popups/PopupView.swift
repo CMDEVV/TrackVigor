@@ -8,6 +8,110 @@
 import SwiftUI
 import MijickPopupView
 import SDWebImageSwiftUI
+import CoreData
+
+struct CreateExercisePopup: CentrePopup{
+    @Environment(\.managedObjectContext) var moc
+    @EnvironmentObject var dataController : CreateExercisePersistence
+    
+    
+    @State var name: String = ""
+    @State var instructions = [String]()
+    @State var selection = "select"
+    var bodyParts = ["select","back","cardio","chest","lower arms","lower legs","neck","shoulders","upper arms","upper legs","waist"]
+    
+    func createContent() -> some View {
+        VStack{
+            // Header View
+            HStack(alignment: .center, spacing: 12){
+                
+                Button{
+                    dismiss()
+                } label: {
+                    Image("close")
+                        .resizable()
+                        .renderingMode(.template)
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(.black)
+                        .frame(width: 12, height: 12)
+                        .padding(15)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                .fill(Color.gray.opacity(0.1))
+                        )
+                        .padding(.top, 15)
+//                        .padding(.leading, 15)
+                }
+                
+                Spacer()
+                
+                Text("Create Exercise")
+                    .font(.headline)
+                
+                Spacer()
+                
+                Button{
+                    // Save Context
+                    let newExercise = ExerciseEntity(context: dataController.container.viewContext)
+                    newExercise.name = self.name
+                    newExercise.bodyPart = self.selection
+                    newExercise.instructions = ["Making a new exercise"] as? [String]
+                    newExercise.equipment = ""
+                    newExercise.gifUrl = ""
+                    dataController.save()
+                    
+                    dismiss()
+                }label: {
+                    Text("Done")
+                        .font(.subheadline)
+                        .foregroundColor(.blue)
+                }
+//                .padding(.trailing, 15)
+                
+            }
+            
+            // Context View
+            ScrollView{
+                VStack(alignment: .leading, spacing: 14){
+                    TextField("Name", text: $name)
+                        .padding()
+                        .textFieldStyle(.roundedBorder)
+                    
+                    Picker("Body Part", selection: $selection){
+                        ForEach(bodyParts, id: \.self){ bodyPart in
+                            Text(bodyPart)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    
+                    VStack(alignment: .leading, spacing: 12){
+                        Text("Instructions")
+                            .font(.headline.bold())
+                        
+//                        TextEditor(text: $instructions)
+//                            .frame(maxWidth: .infinity)
+//                            .frame(height: 130)
+//                            .overlay(
+//                                RoundedRectangle(cornerRadius: 10)
+//                                    .stroke(.gray, lineWidth: 1)
+//                            )
+                        
+                    }
+                   
+                    
+                }
+                    
+            }
+            .frame(height: 300)
+        }.padding(.horizontal, 15)
+    }
+    
+    func configurePopup(popup: CentrePopupConfig) -> CentrePopupConfig {
+        popup
+            .horizontalPadding(20)
+            .cornerRadius(16)
+    }
+}
 
 
 struct ExerciseInfoPopup: CentrePopup {
@@ -19,7 +123,6 @@ struct ExerciseInfoPopup: CentrePopup {
     
     func createContent() -> some View {
         VStack{
-//            Image(exerciseImg)
             AnimatedImage(url: URL(string: exerciseImg))
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -29,18 +132,22 @@ struct ExerciseInfoPopup: CentrePopup {
                 .cornerRadius(10)
                 .overlay(alignment: .topTrailing){
                     Button{
-                      dismiss()
-                    }label: {
-                        Image(systemName: "x.circle")
-                            .imageScale(.large)
+                        dismiss()
+                    } label: {
+                        Image("close")
+                            .resizable()
+                            .renderingMode(.template)
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.black)
+                            .frame(width: 12, height: 12)
+                            .padding(15)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .fill(Color.gray.opacity(0.1))
+                            )
+                            .padding(.top, 15)
+                            .padding(.trailing, 15)
                     }
-                    .frame(width: 22, height: 22)
-                    .background{
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .fill(Color.gray.opacity(0.2))
-                    }
-                    .padding(.trailing, 15)
-                    .padding(.top, 15)
                 }
             
             VStack{
@@ -90,8 +197,4 @@ struct ExerciseInfoPopup: CentrePopup {
     }
     
 }
-//struct PopupView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PopupView()
-//    }
-//}
+

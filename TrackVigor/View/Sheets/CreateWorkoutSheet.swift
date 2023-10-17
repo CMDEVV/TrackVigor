@@ -8,21 +8,31 @@
 import SwiftUI
 
 struct CreateWorkoutSheet: View {
+    @Environment(\.dismiss) var dismiss
+    
     // String/Array Variables
-    @State var isTimerRunning = false
-    @State private var startTime =  Date()
-//    @State private var timerString = "0.00"
-    @State var timeElapsed: Int = 0
-
-    @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var timeOfDay = String()
+    @State var workoutName = String()
 
     // Int Variables
     
     // Bool Variables
-    @State var exerciseSheet: Bool = false
-    
+    @State var exerciseSheet = false
+    @FocusState var isEditing: Bool
     // Model Variables
     @State var exerciseList = ExerciseModelList.allExercise
+    
+    
+    let currentTime = Date()
+    let calendar = Calendar.current
+    
+    
+    //Timer Variables
+    @State var isTimerRunning = false
+    @State private var startTime =  Date()
+//  @State private var timerString = "0.00"
+    @State var timeElapsed: Int = 0
+    @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
             VStack{
@@ -37,6 +47,10 @@ struct CreateWorkoutSheet: View {
                 
         }
             .navigationTitle("Workout")
+            .onAppear{
+                getTimeOfDay()
+
+            }
     }
     
     func stopTimer() {
@@ -47,13 +61,40 @@ struct CreateWorkoutSheet: View {
         self.timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     }
     
+    func getTimeOfDay() {
+        let hour = calendar.component(.hour, from: currentTime)
+        
+        switch hour {
+               case 0..<6:
+                   timeOfDay = "Night Workout"
+               case 6..<12:
+                   timeOfDay = "Morning Workout"
+               case 12..<17:
+                   timeOfDay = "Afternoon Workout"
+               case 17..<20:
+                   timeOfDay = "Evening Workout"
+               default:
+                   timeOfDay = "Night Workout"
+               }
+        
+        workoutName = timeOfDay
+    }
+    
     @ViewBuilder
     func HeaderView() -> some View{
     
             HStack{
                 VStack(alignment: .leading, spacing: 10){
-                    Text("Workout")
+                    
+                    TextField("", text: $workoutName)
                         .font(.title.bold())
+//                        .placeholder(when: workoutName.isEmpty){
+//                            Text("\(timeOfDay) workout")
+//                                .foregroundColor(Color.black)
+//                                .font(.title)
+//                        }
+                       
+   
                     
                     Text("\(timeElapsed) sec")
                         .font(Font.system(.headline, design: .monospaced))
@@ -138,15 +179,44 @@ struct CreateWorkoutSheet: View {
                                 Text("Set")
                                     .font(.subheadline)
                                 
-                                Text("\(exercise.set)")
+                                TextField("", text: .constant(""))
+                                    .padding(6)
+                                    .keyboardType(.numberPad)
+                                    .frame(width: 50, height: 25)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                                    )
+                            }
+                            
+                            VStack(spacing: 15){
+                                Text("lbs")
+                                    .font(.subheadline)
+                                
+                                TextField("", text: .constant(""))
+                                    .padding(6)
+                                    .keyboardType(.numberPad)
+                                    .frame(width: 50, height: 25)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                                    )
                             }
                             
                             
-                            Text("lbs")
-                                .font(.subheadline)
-                            
-                            Text("Reps")
-                                .font(.subheadline)
+                            VStack(spacing: 15){
+                                Text("Reps")
+                                    .font(.subheadline)
+                                
+                                TextField("", text: .constant(""))
+                                    .padding(6)
+                                    .keyboardType(.numberPad)
+                                    .frame(width: 50, height: 25)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                                    )
+                            }
                             
                             Spacer()
                             
@@ -195,6 +265,8 @@ struct CreateWorkoutSheet: View {
         HStack{
             Button{
                // Cancel Workout Dimiss
+               // End timer
+                dismiss()
             }label: {
                 Text("Cancel")
                     .font(.headline)
@@ -208,6 +280,10 @@ struct CreateWorkoutSheet: View {
             
             Button{
                // Create Workout
+                let getCurrentDate = Date()
+                let format = getCurrentDate.getFormattedDate(format: "MM-dd-yyyy")
+                print("CurentDate", format)
+                
             }label: {
                 Text("Finish")
                     .font(.headline)

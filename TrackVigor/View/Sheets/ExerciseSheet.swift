@@ -8,6 +8,7 @@
 import SwiftUI
 import MijickPopupView
 import SDWebImageSwiftUI
+import CoreData
 
 struct ExerciseModelTest: Identifiable{
     var id = UUID()
@@ -28,6 +29,14 @@ struct ExerciseModelTestList{
 
 
 struct ExerciseSheet: View {
+    
+    @EnvironmentObject var dataController : CreateExercisePersistence
+    
+    let fetchExercises : FetchRequest<ExerciseEntity>
+    init(){
+        fetchExercises = FetchRequest<ExerciseEntity>(entity: ExerciseEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \ExerciseEntity.name, ascending: false)])
+    }
+    
     @State var bodyPartModel = [BodyPartModel]()
     @State var exerciseBodyPart = [ExerciseBodyPart]()
     @State var exercises = ExerciseModelTestList.allExercises
@@ -68,10 +77,18 @@ struct ExerciseSheet: View {
             }
             .padding()
             .onAppear{
-                getExercise()
+//                getExercise()
             }
             .implementPopupView()
         
+    }
+    
+    func deleteExercise(at offsets: IndexSet){
+        for offset in offsets{
+            let exercise = fetchExercises.wrappedValue[offset]
+            dataController.delete(exercise)
+        }
+        dataController.save()
     }
     
     @ViewBuilder
@@ -79,21 +96,40 @@ struct ExerciseSheet: View {
         HStack{
             LazyHGrid(rows: row){
                 ForEach(bodyParts, id: \.self){ item in
-                    Text(item)
-                        .frame(width: 90, height: 40)
-                        .padding(.horizontal, 5)
-                        .fixedSize()
-                        .font(.custom("Helvetica", size: 14))
-                        .background(selected == item ? Color.blue : Color.gray.opacity(0.1))
-                        .foregroundColor(selected == item ? Color.white : Color.black)
-                        .onTapGesture {
-                            selected = item
-                        }
-                        .cornerRadius(10)
+                    VStack(spacing: 13){
+                        
+                        Image(item)
+                            .resizable()
+                            .renderingMode(.template)
+                            .aspectRatio(contentMode: .fit)
+                            .padding()
+                            .background{
+                                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                    .fill(selected == item ? Color.blue.opacity(0.16) : Color.gray.opacity(0.1))
+                            }
+                            .onTapGesture {
+                                selected = item
+                            }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 69)
+                            
+                        
+                        Text(item)
+                            .frame(width: 90, height: 40)
+                            .padding(.horizontal, 5)
+                            .fixedSize()
+                            .font(.custom("Helvetica", size: 14))
+                            .background(selected == item ? Color.blue : Color.gray.opacity(0.1))
+                            .foregroundColor(selected == item ? Color.white : Color.black)
+                            .onTapGesture {
+                                selected = item
+                            }
+                            .cornerRadius(10)
+                    }
                 }
             }
         }
-        .frame(height: 60)
+        .frame(height: 135)
     }
     
     @ViewBuilder
@@ -103,53 +139,54 @@ struct ExerciseSheet: View {
 //                ProgressView("Loading...")
 //            }
             
-            ForEach(exerciseBodyPart, id: \.id){ exercise in
+//            ForEach(exerciseBodyPart, id: \.id){ exercise in
+            ForEach(fetchExercises.wrappedValue){ exercise in
 
                 VStack(alignment: .leading,spacing: 13){
-              
-                    HStack{
-                        Text(exercise.bodyPart)
-                            .frame(width: 60, height: 30)
-                            .font(.subheadline)
-                            .background{
-                                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(Color.gray.opacity(0.1))
-                            }
-                        
-                        Spacer()
-                        
-                        Button{
-                            // Show How do exercise
-                            nameSelected = exercise.name
-                            equipmentSelected = exercise.equipment
-                            instructionSelected = exercise.instructions
-                            imgSelected = exercise.gifUrl
-                            ExerciseInfoPopup(name: $nameSelected, equipment: $equipmentSelected, instructions: $instructionSelected, exerciseImg: $imgSelected).showAndStack()
-                        } label: {
-                            Image(systemName: "info.circle")
-                                .imageScale(.medium)
-                               
-                        }
-                        .frame(width: 24, height: 24)
+                 HStack{
+                    Text(exercise.bodyPart ?? "")
+                        .frame(width: 60, height: 30)
+                        .font(.subheadline)
                         .background{
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
                                 .fill(Color.gray.opacity(0.1))
                         }
-                        
+                    
+                    Spacer()
+                    
+                    Button{
+                        // Show How do exercise
+                        nameSelected = exercise.name ?? ""
+                        equipmentSelected = exercise.equipment ?? ""
+                        instructionSelected = exercise.instructions!
+                        imgSelected = exercise.gifUrl ?? ""
+                        ExerciseInfoPopup(name: $nameSelected, equipment: $equipmentSelected, instructions: $instructionSelected, exerciseImg: $imgSelected).showAndStack()
+                    } label: {
+                        Image(systemName: "info.circle")
+                            .imageScale(.medium)
+                            
+                    }
+                    .frame(width: 24, height: 24)
+                    .background{
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .fill(Color.gray.opacity(0.1))
                     }
                     
-                    Text(exercise.name)
+                }
+                    
+                    Text(exercise.name ?? "")
                         .font(.subheadline)
                         .lineLimit(1)
-                       
-                    }
-                    .padding()
+                }
+                .padding()
             }
+            .onDelete(perform: deleteExercise)
             .frame(maxWidth: .infinity)
             .frame(height: 90)
             .background(.white)
             .cornerRadius(10)
             .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
+            
         }
         .padding(.vertical, 5)
         .padding(.horizontal,5)
@@ -166,13 +203,30 @@ struct ExerciseSheet: View {
                 
                 Divider()
                 TextField("Search", text: .constant(""))
-                
-                
+            
             }
             .padding(15)
             .background{
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+            }
+            
+            
+            // Create New Exercise
+            Button{
+                CreateExercisePopup().showAndStack()
+            } label: {
+                Image("plus")
+                    .resizable()
+                    .renderingMode(.template)
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(.black)
+                    .frame(width: 22, height: 22)
+                    .padding(15)
+                    .background{
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .fill(Color.gray.opacity(0.1))
+                    }
             }
         }
         .frame(height: 20)
@@ -189,7 +243,7 @@ struct ExerciseSheet: View {
         // to get data
 //        let urlString = part.replacingOccurrences(of: " ", with: "%20")
 
-        guard let url = URL(string: "https://exercisedb.p.rapidapi.com/exercises/bodyPart/back?limit=10") else {
+        guard let url = URL(string: "https://exercisedb.p.rapidapi.com/exercises?limit=10") else {
             print("Error: cannot create URL")
             return
         }
@@ -270,21 +324,6 @@ struct ExerciseSheet: View {
     }
 }
 
-struct GIFImageView: UIViewRepresentable {
-    let imageName: String
-
-    func makeUIView(context: Context) -> UIImageView {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }
-
-    func updateUIView(_ uiView: UIImageView, context: Context) {
-        if let gifImage = UIImage(named: imageName) {
-            uiView.image = gifImage
-        }
-    }
-}
 
 struct ExerciseSheet_Previews: PreviewProvider {
     static var previews: some View {

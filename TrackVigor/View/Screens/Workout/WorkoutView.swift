@@ -31,46 +31,48 @@ struct WorkoutView: View {
                     CreateWorkoutButton()
             }
             .navigationTitle("Workout")
-            .toolbar{
-                ToolbarItem(placement: .navigationBarTrailing){
-                    Button{
-                        profileSheet.toggle()
-                    } label: {
-                        Image(systemName: "person.circle")
-                            .imageScale(.large)
-                    }
-                    .sheet(isPresented: $profileSheet){
-                        ProfileSheet()
-//                            .presentationDetents([.medium])
-//                            .presentationDragIndicator(.visible)
-                    }
-                }
-            }
-            
+//            .toolbar{
+//                ToolbarItem(placement: .navigationBarTrailing){
+//                    Button{
+//                        profileSheet.toggle()
+//                    } label: {
+//                        Image(systemName: "person.circle")
+//                            .imageScale(.large)
+//                    }
+//                    .sheet(isPresented: $profileSheet){
+//                        ProfileSheet()
+//                    }
+//                }
+//            }
         }
     }
     
     @ViewBuilder
     func WorkoutList() -> some View {
         VStack{
+            if workoutModel.isEmpty{
+                Text("No exercises found")
+                    .font(.title3.bold())
+            }
+            
             ForEach(workoutModel, id: \.id){ workout in
                 VStack(alignment: .leading, spacing: 10){
                     HStack{
                         Text(workout.name)
                             .font(.headline)
-                        
+
                         Spacer()
                         HStack{
                             Image(systemName: "clock")
                                 .imageScale(.medium)
-                            
+
                             Text("\(workout.timer)min")
-                                .font(.headline)
+                                .font(.subheadline)
                         }
                     }
-                    
+
                     Text(workout.date)
-                    
+                        .font(.caption)
                 }
                 .padding()
                 .frame(maxWidth: .infinity)

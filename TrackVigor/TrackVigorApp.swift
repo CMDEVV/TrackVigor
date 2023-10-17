@@ -9,13 +9,23 @@ import SwiftUI
 
 @main
 struct TrackVigorApp: App {
-    let persistenceController = PersistenceController.shared
+    
+//    let persistenceController = PersistenceController.shared
+    @StateObject var createExercisePersistence: CreateExercisePersistence
+    
+    init() {
+        let createExercisePersistence = CreateExercisePersistence()
+        _createExercisePersistence = StateObject(wrappedValue: createExercisePersistence)
+    }
+    
+  
 
     var body: some Scene {
         WindowGroup {
             Tabbar()
                 .implementPopupView()
-               // .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, createExercisePersistence.container.viewContext)
+                .environmentObject(createExercisePersistence)
         }
     }
 }
