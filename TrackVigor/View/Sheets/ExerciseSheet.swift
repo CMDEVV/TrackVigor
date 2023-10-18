@@ -58,6 +58,8 @@ struct ExerciseSheet: View {
     let row = [
             GridItem(.flexible())
         ]
+    
+    
     var body: some View {
             VStack{
                 // Search Bar View
@@ -73,7 +75,6 @@ struct ExerciseSheet: View {
                 }
                 .padding(.top, 10)
                 
-               
             }
             .padding()
             .onAppear{
@@ -135,6 +136,7 @@ struct ExerciseSheet: View {
     @ViewBuilder
     func ExerciseListView() -> some View {
         VStack{
+            
 //            if exerciseBodyPart.isEmpty{
 //                ProgressView("Loading...")
 //            }
@@ -177,10 +179,22 @@ struct ExerciseSheet: View {
                     Text(exercise.name ?? "")
                         .font(.subheadline)
                         .lineLimit(1)
+                    
+//                    Button{
+//                        // Delete Item
+//                        dataController.delete(exercise)
+//                        dataController.save()
+//                    }label: {
+//                        Text("Delete")
+//                            .frame(width: 140, height: 50)
+//                            .background(Color.blue)
+//                            .foregroundColor(Color.white)
+//                            .cornerRadius(10)
+//                    }
                 }
                 .padding()
             }
-            .onDelete(perform: deleteExercise)
+//            .onDelete(perform: deleteExercise)
             .frame(maxWidth: .infinity)
             .frame(height: 90)
             .background(.white)
