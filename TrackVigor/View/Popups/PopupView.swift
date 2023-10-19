@@ -20,7 +20,7 @@ enum ImageType {
 
 struct CreateExercisePopup: CentrePopup{
     @Environment(\.managedObjectContext) var moc
-    @EnvironmentObject var dataController : CreateExercisePersistence
+    @EnvironmentObject var dataController : DataController
     
     
     @State var name: String = ""
@@ -102,7 +102,6 @@ struct CreateExercisePopup: CentrePopup{
                         .foregroundColor(.blue)
                 }
 //                .padding(.trailing, 15)
-                
             }
             
             // Context View
@@ -288,9 +287,11 @@ struct ExerciseInfoPopup: CentrePopup {
                             }
                         }
                     }
+                    
                     .frame(height: 250)
                 }
                 .padding(.top, 30)
+//                .frame(maxWidth: .infinity)
             }
             .padding(15)
             

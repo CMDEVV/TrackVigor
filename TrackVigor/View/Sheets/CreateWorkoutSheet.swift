@@ -6,13 +6,23 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct CreateWorkoutSheet: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var dataController : DataController
+    
+    // CoreData Variables
+    let exercise: FetchRequest<Exercise>
+    
+    init(){
+        exercise = FetchRequest<Exercise>(entity: Exercise.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Exercise.name, ascending: false)])
+    }
     
     // String/Array Variables
     @State var timeOfDay = String()
     @State var workoutName = String()
+    @State var selectedExercise = [String]()
 
     // Int Variables
     
@@ -127,8 +137,10 @@ struct CreateWorkoutSheet: View {
                         exerciseSheet.toggle()
                     }label: {
                         HStack{
-                            Text("Exercise")
-                            Image(systemName: "plus")
+                           
+//                                Text("Exercise")
+                                Image(systemName: "plus")
+                            
                         }
                         .padding()
                         .frame(width: 125, height: 30)
@@ -137,9 +149,24 @@ struct CreateWorkoutSheet: View {
                         .cornerRadius(10)
                     }
                     .padding(.trailing, 15)
-                    .sheet(isPresented: $exerciseSheet){
-                        ExerciseSheet()
+                    .sheet(isPresented: $exerciseSheet, onDismiss: {
+                        print("Dismissed")
+                    }){
+                        ExerciseSheet(selectedExercise: $selectedExercise)
                     }
+                    .onChange(of: selectedExercise){ value in
+                        let exercise = Exercise(context: dataController.container.viewContext)
+                       
+                        for name in value {
+                            exercise.name = name
+                        }
+                        dataController.save()
+                        print("Valueee", value)
+                    }
+                    
+//                    .sheet(isPresented: $exerciseSheet){
+//                        ExerciseSheet()
+//                    }
                 
                 
             }
@@ -151,11 +178,11 @@ struct CreateWorkoutSheet: View {
     @ViewBuilder
     func ExercisesListView() -> some View{
         VStack{
-            ForEach(exerciseList, id: \.id){ exercise in
+            ForEach(exercise.wrappedValue){ exercise in
                 VStack(alignment: .leading, spacing: 15){
                     
                     HStack{
-                        Text(exercise.exercise)
+                        Text(exercise.name ?? "")
                             .font(.headline)
                             .padding(.top, 30)
                         
@@ -300,8 +327,9 @@ struct CreateWorkoutSheet: View {
   
 }
 
-struct CreateWorkoutSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        CreateWorkoutSheet()
-    }
-}
+//struct CreateWorkoutSheet_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//        CreateWorkoutSheet()
+//    }
+//}

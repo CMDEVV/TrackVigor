@@ -9,9 +9,16 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="addSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AddSet"/>
     </entity>
+    <entity name="ExerciseEntity" representedClassName="ExerciseEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="bodyPart" optional="YES" attributeType="String"/>
+        <attribute name="equipment" optional="YES" attributeType="String"/>
+        <attribute name="gifUrl" optional="YES" attributeType="String"/>
+        <attribute name="instructions" optional="YES" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="Workout" representedClassName="Workout" syncable="YES" codeGenerationType="class">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exercise"/>
+        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExerciseEntity"/>
     </entity>
 </model>

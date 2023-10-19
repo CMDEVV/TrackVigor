@@ -9,8 +9,8 @@ import Foundation
 import CoreData
 
 
-class CreateExercisePersistence: ObservableObject{
-    let container = NSPersistentContainer(name: "CreateExercise")
+class DataController: ObservableObject{
+    let container = NSPersistentContainer(name: "Workout")
     
     init() {
         container.loadPersistentStores{ description, error in
@@ -47,6 +47,15 @@ class CreateExercisePersistence: ObservableObject{
         container.viewContext.delete(object)
     }
     
+  
+    
+//    func deleteAll() {
+//        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = School.fetchRequest()
+//        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+//
+//        _ = try? container.viewContext.execute(batchDeleteRequest)
+//    }
+    
 //    func addExercise(name: String, bodyPart: String, instructions: String, context: NSManagedObjectContext){
 //        let exercise = ExerciseEntity(context: context)
 //        exercise.name = name
@@ -56,15 +65,15 @@ class CreateExercisePersistence: ObservableObject{
 //        save(context: context)
 //    }
     
-    func getAllExercises() -> [ExerciseEntity]{
-        let fetchRequest: NSFetchRequest<ExerciseEntity> = ExerciseEntity.fetchRequest()
-        
-        do{
-            return try container.viewContext.fetch(fetchRequest)
-        } catch {
-            return []
-        }
-    }
+//    func getAllExercises() -> [ExerciseEntity]{
+//        let fetchRequest: NSFetchRequest<ExerciseEntity> = ExerciseEntity.fetchRequest()
+//
+//        do{
+//            return try container.viewContext.fetch(fetchRequest)
+//        } catch {
+//            return []
+//        }
+//    }
     
 }
 

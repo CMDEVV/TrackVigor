@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct WorkoutView: View {
+    @EnvironmentObject var dataController: DataController
     // String Variables
     
     // Int Variables
@@ -18,7 +20,12 @@ struct WorkoutView: View {
     // Model Variables
     @State var workoutModel = WorkoutModelList.allWorkouts
     
+    // Coredata Variables
+    let workouts: FetchRequest<Workout>
     
+    init(){
+        workouts = FetchRequest<Workout>(entity: Workout.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Workout.creationDate, ascending: false)])
+    }
     
     var body: some View {
         NavigationStack{
@@ -50,15 +57,15 @@ struct WorkoutView: View {
     @ViewBuilder
     func WorkoutList() -> some View {
         VStack{
-            if workoutModel.isEmpty{
+            if workouts.wrappedValue.isEmpty{
                 Text("No exercises found")
                     .font(.title3.bold())
             }
             
-            ForEach(workoutModel, id: \.id){ workout in
+            ForEach(workouts.wrappedValue){ workout in
                 VStack(alignment: .leading, spacing: 10){
                     HStack{
-                        Text(workout.name)
+                        Text(workout.name!)
                             .font(.headline)
 
                         Spacer()
@@ -66,12 +73,12 @@ struct WorkoutView: View {
                             Image(systemName: "clock")
                                 .imageScale(.medium)
 
-                            Text("\(workout.timer)min")
+                            Text("34 min")
                                 .font(.subheadline)
                         }
                     }
 
-                    Text(workout.date)
+                    Text("\(workout.creationDate!)")
                         .font(.caption)
                 }
                 .padding()

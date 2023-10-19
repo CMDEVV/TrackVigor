@@ -17,9 +17,10 @@
 		D50AC8F02AD7938200D7F687 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50AC8EF2AD7938200D7F687 /* PopupView.swift */; };
 		D50AC8F32AD82A9500D7F687 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D50AC8F22AD82A9500D7F687 /* SDWebImageSwiftUI */; };
 		D50AC8F92ADA63BA00D7F687 /* CreateExercise.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D50AC8F72ADA63B900D7F687 /* CreateExercise.xcdatamodeld */; };
-		D50AC8FC2ADA68F900D7F687 /* CreateExercisePersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50AC8FB2ADA68F900D7F687 /* CreateExercisePersistence.swift */; };
+		D50AC8FC2ADA68F900D7F687 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50AC8FB2ADA68F900D7F687 /* DataController.swift */; };
 		D50AC8FF2ADA749100D7F687 /* Workout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D50AC8FD2ADA749100D7F687 /* Workout.xcdatamodeld */; };
 		D50AC9012ADCCE9A00D7F687 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50AC9002ADCCE9900D7F687 /* Extension.swift */; };
+		D50AC9082AE0D8A400D7F687 /* MultipleSelectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50AC9072AE0D8A400D7F687 /* MultipleSelectionRow.swift */; };
 		D5D07D3B2AD1D5D6008BE5B8 /* TrackVigorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D3A2AD1D5D6008BE5B8 /* TrackVigorApp.swift */; };
 		D5D07D3D2AD1D5D6008BE5B8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D3C2AD1D5D6008BE5B8 /* ContentView.swift */; };
 		D5D07D3F2AD1D5DA008BE5B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5D07D3E2AD1D5DA008BE5B8 /* Assets.xcassets */; };
@@ -67,9 +68,10 @@
 		D50AC8E32AD6D06E00D7F687 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		D50AC8EF2AD7938200D7F687 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		D50AC8F82ADA63B900D7F687 /* CreateExercise.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CreateExercise.xcdatamodel; sourceTree = "<group>"; };
-		D50AC8FB2ADA68F900D7F687 /* CreateExercisePersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExercisePersistence.swift; sourceTree = "<group>"; };
+		D50AC8FB2ADA68F900D7F687 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		D50AC8FE2ADA749100D7F687 /* Workout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Workout.xcdatamodel; sourceTree = "<group>"; };
 		D50AC9002ADCCE9900D7F687 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		D50AC9072AE0D8A400D7F687 /* MultipleSelectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectionRow.swift; sourceTree = "<group>"; };
 		D5D07D372AD1D5D6008BE5B8 /* TrackVigor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackVigor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D07D3A2AD1D5D6008BE5B8 /* TrackVigorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackVigorApp.swift; sourceTree = "<group>"; };
 		D5D07D3C2AD1D5D6008BE5B8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -158,9 +160,17 @@
 			isa = PBXGroup;
 			children = (
 				D50AC8F62ADA62BE00D7F687 /* Data */,
-				D50AC8FB2ADA68F900D7F687 /* CreateExercisePersistence.swift */,
+				D50AC8FB2ADA68F900D7F687 /* DataController.swift */,
 			);
 			path = DataManager;
+			sourceTree = "<group>";
+		};
+		D50AC9062AE0D87200D7F687 /* MultipleSelectionRow */ = {
+			isa = PBXGroup;
+			children = (
+				D50AC9072AE0D8A400D7F687 /* MultipleSelectionRow.swift */,
+			);
+			path = MultipleSelectionRow;
 			sourceTree = "<group>";
 		};
 		D5D07D2E2AD1D5D6008BE5B8 = {
@@ -274,6 +284,7 @@
 		D5D07D6E2AD1DCE8008BE5B8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D50AC9062AE0D87200D7F687 /* MultipleSelectionRow */,
 				D50AC8EE2AD7935E00D7F687 /* Popups */,
 				D5D07D732AD1DD0D008BE5B8 /* Screens */,
 				D5D07D722AD1DD07008BE5B8 /* Loading */,
@@ -507,6 +518,7 @@
 				D5D07D872AD2812D008BE5B8 /* WorkoutDetailView.swift in Sources */,
 				D50AC8D32AD4213B00D7F687 /* UrlsViewModel.swift in Sources */,
 				D50AC8DA2AD5762600D7F687 /* ExerciseBodyPartModel.swift in Sources */,
+				D50AC9082AE0D8A400D7F687 /* MultipleSelectionRow.swift in Sources */,
 				D50AC8DF2AD65F5100D7F687 /* ExerciseBodyPartView.swift in Sources */,
 				D50AC8F92ADA63BA00D7F687 /* CreateExercise.xcdatamodeld in Sources */,
 				D5D07D772AD1DD3A008BE5B8 /* Tabbar.swift in Sources */,
@@ -522,7 +534,7 @@
 				D5D07D472AD1D5DA008BE5B8 /* TrackVigor.xcdatamodeld in Sources */,
 				D5D07D852AD1E69B008BE5B8 /* ProfileSheet.swift in Sources */,
 				D50AC8DC2AD6500200D7F687 /* BodyPartModel.swift in Sources */,
-				D50AC8FC2ADA68F900D7F687 /* CreateExercisePersistence.swift in Sources */,
+				D50AC8FC2ADA68F900D7F687 /* DataController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

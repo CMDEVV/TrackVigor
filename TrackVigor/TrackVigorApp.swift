@@ -11,11 +11,11 @@ import SwiftUI
 struct TrackVigorApp: App {
     
 //    let persistenceController = PersistenceController.shared
-    @StateObject var createExercisePersistence: CreateExercisePersistence
+    @StateObject var dataController: DataController
     
     init() {
-        let createExercisePersistence = CreateExercisePersistence()
-        _createExercisePersistence = StateObject(wrappedValue: createExercisePersistence)
+        let dataController = DataController()
+        _dataController = StateObject(wrappedValue: dataController)
     }
     
   
@@ -24,8 +24,8 @@ struct TrackVigorApp: App {
         WindowGroup {
             Tabbar()
                 .implementPopupView()
-                .environment(\.managedObjectContext, createExercisePersistence.container.viewContext)
-                .environmentObject(createExercisePersistence)
+                .environment(\.managedObjectContext, dataController.container.viewContext)
+                .environmentObject(dataController)
         }
     }
 }

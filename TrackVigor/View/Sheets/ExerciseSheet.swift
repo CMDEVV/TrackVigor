@@ -30,12 +30,19 @@ struct ExerciseModelTestList{
 
 struct ExerciseSheet: View {
     
-    @EnvironmentObject var dataController : CreateExercisePersistence
+    @EnvironmentObject var dataController : DataController
+    @Binding var selectedExercise: [String]
+//    let fetchExercises : FetchRequest<ExerciseEntity>
     
-    let fetchExercises : FetchRequest<ExerciseEntity>
-    init(){
-        fetchExercises = FetchRequest<ExerciseEntity>(entity: ExerciseEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \ExerciseEntity.name, ascending: false)])
-    }
+    @FetchRequest(
+        entity: ExerciseEntity.entity(),
+        sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]
+      ) var fetchExercises: FetchedResults<ExerciseEntity>
+    
+//    init(){
+//        fetchExercises = FetchRequest<ExerciseEntity>(entity: ExerciseEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \ExerciseEntity.name, ascending: false)])
+//        selectedExercise = [""]
+//    }
     
     @State var bodyPartModel = [BodyPartModel]()
     @State var exerciseBodyPart = [ExerciseBodyPart]()
@@ -53,7 +60,9 @@ struct ExerciseSheet: View {
     @State var imgSelected = String()
     
     @State private var gifImage: UIImage? = nil
+    @State var selection = [String]()
 
+    
     
     let row = [
             GridItem(.flexible())
@@ -74,11 +83,15 @@ struct ExerciseSheet: View {
                     ExerciseListView()
                 }
                 .padding(.top, 10)
+                .scrollIndicators(.hidden)
                 
             }
             .padding()
             .onAppear{
 //                getExercise()
+            }
+            .onDisappear{
+                selectedExercise = selection
             }
             .implementPopupView()
         
@@ -86,7 +99,8 @@ struct ExerciseSheet: View {
     
     func deleteExercise(at offsets: IndexSet){
         for offset in offsets{
-            let exercise = fetchExercises.wrappedValue[offset]
+//            let exercise = fetchExercises.wrappedValue[offset]
+            let exercise = fetchExercises[offset]
             dataController.delete(exercise)
         }
         dataController.save()
@@ -142,64 +156,25 @@ struct ExerciseSheet: View {
 //            }
             
 //            ForEach(exerciseBodyPart, id: \.id){ exercise in
-            ForEach(fetchExercises.wrappedValue){ exercise in
+            ForEach(fetchExercises){ exercise in
+                
+                MultipleSelectionRow(name: exercise.name!, bodyPart: exercise.bodyPart!,equipment: exercise.equipment!,gifUrl: exercise.gifUrl!,instructions: exercise.instructions!, isSelected: self.selection.contains(exercise.name!)){
+                    if self.selection.contains(exercise.name!){
+                        self.selection.removeAll(where: {$0 == exercise.name!})
+                    }else{
+                        self.selection.append(exercise.name!)
+                    }
+                }
 
-                VStack(alignment: .leading,spacing: 13){
-                 HStack{
-                    Text(exercise.bodyPart ?? "")
-                        .frame(width: 60, height: 30)
-                        .font(.subheadline)
-                        .background{
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .fill(Color.gray.opacity(0.1))
-                        }
-                    
-                    Spacer()
-                    
-                    Button{
-                        // Show How do exercise
-                        nameSelected = exercise.name ?? ""
-                        equipmentSelected = exercise.equipment ?? ""
-                        instructionSelected = exercise.instructions!
-                        imgSelected = exercise.gifUrl ?? ""
-                        ExerciseInfoPopup(name: $nameSelected, equipment: $equipmentSelected, instructions: $instructionSelected, exerciseImg: $imgSelected).showAndStack()
-                    } label: {
-                        Image(systemName: "info.circle")
-                            .imageScale(.medium)
-                            
-                    }
-                    .frame(width: 24, height: 24)
-                    .background{
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .fill(Color.gray.opacity(0.1))
-                    }
-                    
-                }
-                    
-                    Text(exercise.name ?? "")
-                        .font(.subheadline)
-                        .lineLimit(1)
-                    
-//                    Button{
-//                        // Delete Item
-//                        dataController.delete(exercise)
-//                        dataController.save()
-//                    }label: {
-//                        Text("Delete")
-//                            .frame(width: 140, height: 50)
-//                            .background(Color.blue)
-//                            .foregroundColor(Color.white)
-//                            .cornerRadius(10)
-//                    }
-                }
-                .padding()
+                
+//                .padding()
             }
 //            .onDelete(perform: deleteExercise)
-            .frame(maxWidth: .infinity)
-            .frame(height: 90)
-            .background(.white)
-            .cornerRadius(10)
-            .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
+//            .frame(maxWidth: .infinity)
+//            .frame(height: 90)
+//            .background(.white)
+//            .cornerRadius(10)
+//            .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
             
         }
         .padding(.vertical, 5)
@@ -339,9 +314,9 @@ struct ExerciseSheet: View {
 }
 
 
-struct ExerciseSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        ExerciseSheet()
-            .implementPopupView()
-    }
-}
+//struct ExerciseSheet_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ExerciseSheet()
+//            .implementPopupView()
+//    }
+//}
