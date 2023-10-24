@@ -14,6 +14,13 @@ struct CreateWorkoutSheet: View {
     
     // CoreData Variables
     let exercise: FetchRequest<Exercise>
+//    let workout: Workout
+//    let exericses: [Exercise]
+    
+//    init(workout: Workout){
+//        self.workout = workout
+//
+//    }
     
     init(){
         exercise = FetchRequest<Exercise>(entity: Exercise.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Exercise.name, ascending: false)])
@@ -45,21 +52,20 @@ struct CreateWorkoutSheet: View {
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
-            VStack{
-                ScrollView{
-                    // Header View
-                    HeaderView()
-                    // Exercises List
-                    ExercisesListView()
-                    // Buttons
-            }
-                ExerciseButton()
-                
+        VStack{
+            ScrollView{
+                // Header View
+                HeaderView()
+                // Exercises List
+                ExercisesListView()
+                // Buttons
         }
-            .navigationTitle("Workout")
+            ExerciseButton()
+            
+    }
+        .navigationTitle("Workout")
             .onAppear{
                 getTimeOfDay()
-
             }
     }
     
@@ -103,15 +109,13 @@ struct CreateWorkoutSheet: View {
 //                                .foregroundColor(Color.black)
 //                                .font(.title)
 //                        }
-                       
-   
-                    
+
                     Text("\(timeElapsed) sec")
                         .font(Font.system(.headline, design: .monospaced))
                         .onReceive(timer) { firedDate in
                             if self.isTimerRunning {
                                 timeElapsed = Int(firedDate.timeIntervalSince(startTime))
-                                //timerString = String(format: "%.2f", (Date().timeIntervalSince( self.startTime)))
+                              //timerString = String(format: "%.2f", (Date().timeIntervalSince( self.startTime)))
                             }
                         }
                         .onTapGesture {
@@ -132,41 +136,39 @@ struct CreateWorkoutSheet: View {
                 
                 Spacer()
                 
-          
-                    Button{
-                        exerciseSheet.toggle()
-                    }label: {
-                        HStack{
-                           
-//                                Text("Exercise")
-                                Image(systemName: "plus")
-                            
-                        }
-                        .padding()
-                        .frame(width: 125, height: 30)
-                        .background(.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                Button{
+                    exerciseSheet.toggle()
+                }label: {
+                    HStack{
+                        //Text("Exercise")
+                        Image(systemName: "plus")
+                        
                     }
-                    .padding(.trailing, 15)
-                    .sheet(isPresented: $exerciseSheet, onDismiss: {
-                        print("Dismissed")
-                    }){
-                        ExerciseSheet(selectedExercise: $selectedExercise)
-                    }
-                    .onChange(of: selectedExercise){ value in
-                        let exercise = Exercise(context: dataController.container.viewContext)
-                       
-                        for name in value {
-                            exercise.name = name
-                        }
-                        dataController.save()
-                        print("Valueee", value)
+                    .padding()
+                    .frame(width: 125, height: 30)
+                    .background(.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
+                .padding(.trailing, 15)
+                .sheet(isPresented: $exerciseSheet, onDismiss: {
+                    print("Dismissed")
+                }){
+                    ExerciseSheet(selectedExercise: $selectedExercise)
+                }
+                .onChange(of: selectedExercise){ value in
+                    let exercise = Exercise(context: dataController.container.viewContext)
+                    
+                    for name in value {
+                        exercise.name = name
                     }
                     
-//                    .sheet(isPresented: $exerciseSheet){
-//                        ExerciseSheet()
-//                    }
+                    dataController.save()
+                    print("Valueee", value)
+                }
+//              .sheet(isPresented: $exerciseSheet){
+//                   ExerciseSheet()
+//               }
                 
                 
             }
@@ -262,9 +264,10 @@ struct CreateWorkoutSheet: View {
                             
                             // Edit Exercise Button
                             Button{
-                                
+                                dataController.delete(exercise)
+                                dataController.save()
                             } label: {
-                                Image(systemName: "ellipsis")
+                                Image(systemName: "trash")
                                     .imageScale(.medium)
                             }
                             .frame(width: 25, height: 25)
@@ -309,7 +312,21 @@ struct CreateWorkoutSheet: View {
                // Create Workout
                 let getCurrentDate = Date()
                 let format = getCurrentDate.getFormattedDate(format: "MM-dd-yyyy")
-                print("CurentDate", format)
+//                print("CurentDate", format)
+                
+                let workout = Workout(context: dataController.container.viewContext)
+                workout.name = workoutName
+                workout.creationDate = format
+//                workout.exercise = self.exercise
+                
+//                for i in exercise.wrappedValue{
+//                    workout.exercise?.name = i.name
+//                }
+                
+                dataController.save()
+                
+                
+                dismiss()
                 
             }label: {
                 Text("Finish")

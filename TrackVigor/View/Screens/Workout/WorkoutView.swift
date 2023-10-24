@@ -11,12 +11,14 @@ import CoreData
 struct WorkoutView: View {
     @EnvironmentObject var dataController: DataController
     // String Variables
-    
+    @State var workoutClicked: String = ""
     // Int Variables
     
     // Bool Variables
     @State var profileSheet: Bool = false
     @State var createWorkoutSheet: Bool = false
+    @State var goToDetail = false
+
     // Model Variables
     @State var workoutModel = WorkoutModelList.allWorkouts
     
@@ -38,6 +40,18 @@ struct WorkoutView: View {
                     CreateWorkoutButton()
             }
             .navigationTitle("Workout")
+            .onAppear{
+//                for i in workouts.wrappedValue{
+//                    print("data", i.exercise?.)
+//                }
+            }
+            .toolbar{
+                ToolbarItem(placement: .navigationBarLeading){
+                    Button("Add Sample Data") {
+                        dataController.sampleData()
+                    }
+                }
+            }
 //            .toolbar{
 //                ToolbarItem(placement: .navigationBarTrailing){
 //                    Button{
@@ -63,30 +77,42 @@ struct WorkoutView: View {
             }
             
             ForEach(workouts.wrappedValue){ workout in
-                VStack(alignment: .leading, spacing: 10){
-                    HStack{
-                        Text(workout.name!)
-                            .font(.headline)
-
-                        Spacer()
+                Button{
+                    goToDetail = true
+                } label: {
+                    VStack(alignment: .leading, spacing: 10){
                         HStack{
-                            Image(systemName: "clock")
-                                .imageScale(.medium)
-
-                            Text("34 min")
-                                .font(.subheadline)
+                            Text(workout.name!)
+                                .font(.headline)
+                            
+                            Spacer()
+                            HStack{
+                                Image(systemName: "clock")
+                                    .imageScale(.medium)
+                                
+                                Text("34 min")
+                                    .font(.subheadline)
+                            }
                         }
+                        
+                        Text("\(workout.creationDate!)")
+                            .font(.caption)
                     }
-
-                    Text("\(workout.creationDate!)")
-                        .font(.caption)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 85)
+                    .background(.white)
+                    .cornerRadius(10)
+                    .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
+                    .onTapGesture {
+                        workoutClicked = workout.name ?? ""
+                        goToDetail = true
+                    }
+                    
                 }
-                .padding()
-                .frame(maxWidth: .infinity)
-                .frame(height: 85)
-                .background(.white)
-                .cornerRadius(10)
-                .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
+                .navigationDestination(isPresented: $goToDetail){
+                    WorkoutDetailView(workout: workout, workoutTitle: $workoutClicked)
+                }
             }
             
         }
