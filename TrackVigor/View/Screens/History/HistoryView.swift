@@ -38,7 +38,7 @@ struct HistoryView: View {
             ForEach(workoutModel, id: \.id){ workout in
                 VStack(alignment: .leading, spacing: 10){
                     HStack{
-                        Text("\(workout.name)(\(workout.timer)min)")
+                        Text("\(workout.name)")
                             .font(.headline)
                         
                         Spacer()
@@ -57,7 +57,8 @@ struct HistoryView: View {
                             }
                         }
                     }
-                    Text(workout.date)
+                    
+                    Text(workout.creationDate)
                     
                     VStack(alignment: .leading, spacing: 3){
                         Text("Exercise")

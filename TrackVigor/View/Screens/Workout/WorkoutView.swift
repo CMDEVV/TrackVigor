@@ -20,10 +20,11 @@ struct WorkoutView: View {
     @State var goToDetail = false
 
     // Model Variables
-    @State var workoutModel = WorkoutModelList.allWorkouts
+//    @State var workoutModel = WorkoutModelList.allWorkouts
     
     // Coredata Variables
     let workouts: FetchRequest<Workout>
+
     
     init(){
         workouts = FetchRequest<Workout>(entity: Workout.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Workout.creationDate, ascending: false)])
@@ -76,26 +77,42 @@ struct WorkoutView: View {
                     .font(.title3.bold())
             }
             
+            // MARK: Should be able to fix getting the correct workout by adding NavigationLink
             ForEach(workouts.wrappedValue){ workout in
-                Button{
+              Button{
                     goToDetail = true
                 } label: {
                     VStack(alignment: .leading, spacing: 10){
                         HStack{
-                            Text(workout.name!)
+                            Text(workout.name ?? "")
                                 .font(.headline)
                             
                             Spacer()
-                            HStack{
+                            HStack(spacing: 13){
+                               
                                 Image(systemName: "clock")
                                     .imageScale(.medium)
                                 
                                 Text("34 min")
                                     .font(.subheadline)
+                                
+                                Button{
+                                    dataController.delete(workout)
+                                    dataController.save()
+                                } label: {
+                                    Image(systemName: "trash")
+                                        .padding()
+                                        .frame(width: 23, height: 23)
+                                }
+                                .background{
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .fill(Color.gray.opacity(0.15))
+                                }
                             }
                         }
+                       
                         
-                        Text("\(workout.creationDate!)")
+                        Text("\(workout.creationDate ?? "")")
                             .font(.caption)
                     }
                     .padding()
@@ -139,6 +156,7 @@ struct WorkoutView: View {
                 .cornerRadius(50)
             }
             .sheet(isPresented: $createWorkoutSheet){
+
                 CreateWorkoutSheet()
             }
             

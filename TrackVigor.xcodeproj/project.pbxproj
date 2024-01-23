@@ -21,6 +21,10 @@
 		D50AC8FF2ADA749100D7F687 /* Workout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D50AC8FD2ADA749100D7F687 /* Workout.xcdatamodeld */; };
 		D50AC9012ADCCE9A00D7F687 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50AC9002ADCCE9900D7F687 /* Extension.swift */; };
 		D50AC9082AE0D8A400D7F687 /* MultipleSelectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50AC9072AE0D8A400D7F687 /* MultipleSelectionRow.swift */; };
+		D51F7F272B5F735900DB589E /* Migrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51F7F262B5F735900DB589E /* Migrator.swift */; };
+		D51F7F2A2B5F74EE00DB589E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D51F7F292B5F74EE00DB589E /* Realm */; };
+		D51F7F2C2B5F74EE00DB589E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D51F7F2B2B5F74EE00DB589E /* RealmSwift */; };
+		D51F7F2F2B5F75FC00DB589E /* WorkoutRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51F7F2E2B5F75FC00DB589E /* WorkoutRealmModel.swift */; };
 		D5D07D3B2AD1D5D6008BE5B8 /* TrackVigorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D3A2AD1D5D6008BE5B8 /* TrackVigorApp.swift */; };
 		D5D07D3D2AD1D5D6008BE5B8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D07D3C2AD1D5D6008BE5B8 /* ContentView.swift */; };
 		D5D07D3F2AD1D5DA008BE5B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5D07D3E2AD1D5DA008BE5B8 /* Assets.xcassets */; };
@@ -72,6 +76,8 @@
 		D50AC8FE2ADA749100D7F687 /* Workout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Workout.xcdatamodel; sourceTree = "<group>"; };
 		D50AC9002ADCCE9900D7F687 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D50AC9072AE0D8A400D7F687 /* MultipleSelectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelectionRow.swift; sourceTree = "<group>"; };
+		D51F7F262B5F735900DB589E /* Migrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migrator.swift; sourceTree = "<group>"; };
+		D51F7F2E2B5F75FC00DB589E /* WorkoutRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRealmModel.swift; sourceTree = "<group>"; };
 		D5D07D372AD1D5D6008BE5B8 /* TrackVigor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackVigor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D07D3A2AD1D5D6008BE5B8 /* TrackVigorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackVigorApp.swift; sourceTree = "<group>"; };
 		D5D07D3C2AD1D5D6008BE5B8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -102,6 +108,8 @@
 			files = (
 				D50AC8F32AD82A9500D7F687 /* SDWebImageSwiftUI in Frameworks */,
 				D50AC8D62AD423BD00D7F687 /* InitialsUI in Frameworks */,
+				D51F7F2A2B5F74EE00DB589E /* Realm in Frameworks */,
+				D51F7F2C2B5F74EE00DB589E /* RealmSwift in Frameworks */,
 				D50AC8E22AD6CFC500D7F687 /* MijickPopupView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,6 +181,22 @@
 			path = MultipleSelectionRow;
 			sourceTree = "<group>";
 		};
+		D51F7F252B5F734800DB589E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D51F7F262B5F735900DB589E /* Migrator.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		D51F7F2D2B5F754700DB589E /* RealmModel */ = {
+			isa = PBXGroup;
+			children = (
+				D51F7F2E2B5F75FC00DB589E /* WorkoutRealmModel.swift */,
+			);
+			path = RealmModel;
+			sourceTree = "<group>";
+		};
 		D5D07D2E2AD1D5D6008BE5B8 = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +220,7 @@
 		D5D07D392AD1D5D6008BE5B8 /* TrackVigor */ = {
 			isa = PBXGroup;
 			children = (
+				D51F7F252B5F734800DB589E /* Utils */,
 				D50AC8682AD28E2600D7F687 /* Info.plist */,
 				D5D07D3C2AD1D5D6008BE5B8 /* ContentView.swift */,
 				D5D07D432AD1D5DA008BE5B8 /* Persistence.swift */,
@@ -273,6 +298,7 @@
 		D5D07D6D2AD1DCE1008BE5B8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D51F7F2D2B5F754700DB589E /* RealmModel */,
 				D5D07D7B2AD1E013008BE5B8 /* WorkoutModel.swift */,
 				D5D07D8A2AD288DC008BE5B8 /* ExerciseModel.swift */,
 				D50AC8D92AD5762500D7F687 /* ExerciseBodyPartModel.swift */,
@@ -391,6 +417,8 @@
 				D50AC8D52AD423BD00D7F687 /* InitialsUI */,
 				D50AC8E12AD6CFC500D7F687 /* MijickPopupView */,
 				D50AC8F22AD82A9500D7F687 /* SDWebImageSwiftUI */,
+				D51F7F292B5F74EE00DB589E /* Realm */,
+				D51F7F2B2B5F74EE00DB589E /* RealmSwift */,
 			);
 			productName = TrackVigor;
 			productReference = D5D07D372AD1D5D6008BE5B8 /* TrackVigor.app */;
@@ -468,6 +496,7 @@
 				D50AC8D42AD423BD00D7F687 /* XCRemoteSwiftPackageReference "InitialsUI" */,
 				D50AC8E02AD6CFC500D7F687 /* XCRemoteSwiftPackageReference "PopupView" */,
 				D50AC8F12AD82A9500D7F687 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				D51F7F282B5F74EE00DB589E /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 			);
 			productRefGroup = D5D07D382AD1D5D6008BE5B8 /* Products */;
 			projectDirPath = "";
@@ -514,6 +543,7 @@
 				D50AC9012ADCCE9A00D7F687 /* Extension.swift in Sources */,
 				D5D07D832AD1E4F3008BE5B8 /* HistoryView.swift in Sources */,
 				D5D07D442AD1D5DA008BE5B8 /* Persistence.swift in Sources */,
+				D51F7F2F2B5F75FC00DB589E /* WorkoutRealmModel.swift in Sources */,
 				D50AC8F02AD7938200D7F687 /* PopupView.swift in Sources */,
 				D5D07D872AD2812D008BE5B8 /* WorkoutDetailView.swift in Sources */,
 				D50AC8D32AD4213B00D7F687 /* UrlsViewModel.swift in Sources */,
@@ -524,6 +554,7 @@
 				D5D07D772AD1DD3A008BE5B8 /* Tabbar.swift in Sources */,
 				D5D07D3D2AD1D5D6008BE5B8 /* ContentView.swift in Sources */,
 				D5D07D8B2AD288DC008BE5B8 /* ExerciseModel.swift in Sources */,
+				D51F7F272B5F735900DB589E /* Migrator.swift in Sources */,
 				D50AC8FF2ADA749100D7F687 /* Workout.xcdatamodeld in Sources */,
 				D50AC8D82AD5737200D7F687 /* ExerciseSheet.swift in Sources */,
 				D5D07D7C2AD1E013008BE5B8 /* WorkoutModel.swift in Sources */,
@@ -703,8 +734,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -735,8 +765,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -893,6 +922,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		D51F7F282B5F74EE00DB589E /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -910,6 +947,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D50AC8F12AD82A9500D7F687 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		D51F7F292B5F74EE00DB589E /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D51F7F282B5F74EE00DB589E /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		D51F7F2B2B5F74EE00DB589E /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D51F7F282B5F74EE00DB589E /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 

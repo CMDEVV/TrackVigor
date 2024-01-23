@@ -154,20 +154,18 @@ struct ExerciseSheet: View {
 //            if exerciseBodyPart.isEmpty{
 //                ProgressView("Loading...")
 //            }
-            
 //            ForEach(exerciseBodyPart, id: \.id){ exercise in
+            
             ForEach(fetchExercises){ exercise in
                 
                 MultipleSelectionRow(name: exercise.name!, bodyPart: exercise.bodyPart!,equipment: exercise.equipment!,gifUrl: exercise.gifUrl!,instructions: exercise.instructions!, isSelected: self.selection.contains(exercise.name!)){
                     if self.selection.contains(exercise.name!){
                         self.selection.removeAll(where: {$0 == exercise.name!})
-                    }else{
+                    } else {
                         self.selection.append(exercise.name!)
                     }
                 }
-
-                
-//                .padding()
+//               .padding()
             }
 //            .onDelete(perform: deleteExercise)
 //            .frame(maxWidth: .infinity)

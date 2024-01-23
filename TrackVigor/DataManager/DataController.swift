@@ -78,7 +78,7 @@ class DataController: ObservableObject{
         exercise1.name = "Bench Press (New)"
         exercise1.addSet = [addSet1, addSet2]
         
-        
+       
         let exercise2 = Exercise(context: viewContext)
         exercise2.id = UUID()
         exercise2.name = "Leg Press (New)"

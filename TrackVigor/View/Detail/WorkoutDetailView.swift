@@ -13,9 +13,7 @@ struct WorkoutDetailView: View {
     @EnvironmentObject var dataController : DataController
     
 
-   
-    
-    @ObservedObject var workout: Workout
+    let workout: Workout
 
     // The exercises objects are fetched from
     // within the workout object itself
@@ -39,7 +37,7 @@ struct WorkoutDetailView: View {
     @State var exerciseSheet = false
     @FocusState var isEditing: Bool
     // Model Variables
-    @State var exerciseList = ExerciseModelList.allExercise
+//    @State var exerciseList = ExerciseModelList.allExercise
     
     
     let currentTime = Date()
@@ -240,6 +238,7 @@ struct WorkoutDetailView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             
                             ForEach(exercise.addSet?.allObjects as? [AddSet] ?? []){ item in
+                                
                                 let ternaryForBackground = item.set! != "" && item.lbs! != "" && item.reps! != ""
                                 HStack{
                                     TextField(item.set ?? "", text: .constant(""))

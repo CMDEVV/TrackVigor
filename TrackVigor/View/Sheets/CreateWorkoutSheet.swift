@@ -10,10 +10,17 @@ import CoreData
 
 struct CreateWorkoutSheet: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.managedObjectContext) var moc
+
     @EnvironmentObject var dataController : DataController
     
+//    let workout: Workout
+//
+//    var exercise : [Exercise] {
+//        workout.exercise?.allObjects as? [Exercise] ?? []
+//    }
     // CoreData Variables
-    let exercise: FetchRequest<Exercise>
+//    let exercise: FetchRequest<Exercise>
 //    let workout: Workout
 //    let exericses: [Exercise]
     
@@ -22,14 +29,18 @@ struct CreateWorkoutSheet: View {
 //
 //    }
     
-    init(){
-        exercise = FetchRequest<Exercise>(entity: Exercise.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Exercise.name, ascending: false)])
-    }
+//    init(){
+//        exercise = FetchRequest<Exercise>(entity: Exercise.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Exercise.name, ascending: false)])
+//    }
     
     // String/Array Variables
     @State var timeOfDay = String()
     @State var workoutName = String()
     @State var selectedExercise = [String]()
+    
+    @State var setText = String()
+    @State var lbsText = String()
+    @State var repText = String()
 
     // Int Variables
     
@@ -37,7 +48,9 @@ struct CreateWorkoutSheet: View {
     @State var exerciseSheet = false
     @FocusState var isEditing: Bool
     // Model Variables
-    @State var exerciseList = ExerciseModelList.allExercise
+    @State var workoutModel = [WorkoutModel]()
+    @State var currentExercise: ExericiseModel?
+//    @State var exerciseList = ExerciseModelList.allExercise
     
     
     let currentTime = Date()
@@ -51,6 +64,11 @@ struct CreateWorkoutSheet: View {
     @State var timeElapsed: Int = 0
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
+
+    @State private var newSetLbs: String = ""
+    @State private var newSetReps: String = ""
+    @State private var newSetDesc: String = ""
+    
     var body: some View {
         VStack{
             ScrollView{
@@ -58,16 +76,17 @@ struct CreateWorkoutSheet: View {
                 HeaderView()
                 // Exercises List
                 ExercisesListView()
+           
                 // Buttons
         }
             ExerciseButton()
-            
     }
         .navigationTitle("Workout")
-            .onAppear{
-                getTimeOfDay()
-            }
+        .onAppear{
+            getTimeOfDay()
+        }
     }
+    
     
     func stopTimer() {
         self.timer.upstream.connect().cancel()
@@ -96,12 +115,11 @@ struct CreateWorkoutSheet: View {
         workoutName = timeOfDay
     }
     
+    
     @ViewBuilder
     func HeaderView() -> some View{
-    
             HStack{
                 VStack(alignment: .leading, spacing: 10){
-                    
                     TextField("", text: $workoutName)
                         .font(.title.bold())
 //                        .placeholder(when: workoutName.isEmpty){
@@ -109,7 +127,8 @@ struct CreateWorkoutSheet: View {
 //                                .foregroundColor(Color.black)
 //                                .font(.title)
 //                        }
-
+                    
+                    
                     Text("\(timeElapsed) sec")
                         .font(Font.system(.headline, design: .monospaced))
                         .onReceive(timer) { firedDate in
@@ -129,20 +148,19 @@ struct CreateWorkoutSheet: View {
                                 // start UI updates
                                 self.startTimer()
                             }
+                            
                             isTimerRunning.toggle()
-                        }
-                    
+                    }
                 }
                 
                 Spacer()
                 
                 Button{
                     exerciseSheet.toggle()
-                }label: {
+                } label: {
                     HStack{
                         //Text("Exercise")
                         Image(systemName: "plus")
-                        
                     }
                     .padding()
                     .frame(width: 125, height: 30)
@@ -157,133 +175,159 @@ struct CreateWorkoutSheet: View {
                     ExerciseSheet(selectedExercise: $selectedExercise)
                 }
                 .onChange(of: selectedExercise){ value in
-                    let exercise = Exercise(context: dataController.container.viewContext)
+                    let getCurrentDate = Date()
+                    let formatDate = getCurrentDate.getFormattedDate(format: "MM-dd-yyyy")
                     
-                    for name in value {
-                        exercise.name = name
+                    var modelOne = WorkoutModel(name: workoutName, creationDate: formatDate, exercises: [])
+                    for exercise in value{
+                        let modelTwo = ExericiseModel(name: exercise, addSet: [AddSetModel(lbs: "", reps: "", set: "")])
+                        modelOne.exercises.append(modelTwo)
                     }
                     
-                    dataController.save()
-                    print("Valueee", value)
+                    workoutModel.append(modelOne)
+                    print("workoutMOdell", workoutModel)
+                    
                 }
-//              .sheet(isPresented: $exerciseSheet){
-//                   ExerciseSheet()
-//               }
-                
-                
+
             }
             .padding(.top, 30)
             .padding(.horizontal, 15)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
     
+    func addSetToSelectedExercise() {
+        if var exercise = currentExercise {
+            // Append a new set to the selected exercise's addSet array
+            exercise.addSet.append(AddSetModel(lbs: "", reps: "", set: ""))
+            // exercise.addSet.append(AddSetModel(lbs: "", reps: "", set: ""))
+            currentExercise = exercise
+        }
+    }
+    
+    
     @ViewBuilder
     func ExercisesListView() -> some View{
         VStack{
-            ForEach(exercise.wrappedValue){ exercise in
-                VStack(alignment: .leading, spacing: 15){
+            ForEach($workoutModel, id: \.id){ workout in
+                ForEach(workout.exercises, id: \.id){ exercise in
                     
-                    HStack{
-                        Text(exercise.name ?? "")
-                            .font(.headline)
-                            .padding(.top, 30)
-                        
-                        Spacer()
-                        
-                        Button{
+                    VStack(alignment: .leading, spacing: 15){
+                        HStack{
                             
-                        } label: {
-                            HStack{
-                                Text("Add Set")
-                                Image(systemName: "plus")
-                            }
-                        }
-                        .padding(.top, 30)
-                        .padding(.trailing, 15)
-                        
-                    }
-                    VStack{
-                        HStack(alignment: .center, spacing: 25){
-                            VStack(spacing: 15){
-                                Text("Set")
-                                    .font(.subheadline)
-                                
-                                TextField("", text: .constant(""))
-                                    .padding(6)
-                                    .keyboardType(.numberPad)
-                                    .frame(width: 50, height: 25)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                                    )
-                            }
-                            
-                            VStack(spacing: 15){
-                                Text("lbs")
-                                    .font(.subheadline)
-                                
-                                TextField("", text: .constant(""))
-                                    .padding(6)
-                                    .keyboardType(.numberPad)
-                                    .frame(width: 50, height: 25)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                                    )
-                            }
-                            
-                            
-                            VStack(spacing: 15){
-                                Text("Reps")
-                                    .font(.subheadline)
-                                
-                                TextField("", text: .constant(""))
-                                    .padding(6)
-                                    .keyboardType(.numberPad)
-                                    .frame(width: 50, height: 25)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                                    )
-                            }
+                            Text(exercise.wrappedValue.name)
+                                .font(.headline)
+                                .padding(.top, 30)
                             
                             Spacer()
                             
-                            // Rest Timer Button
                             Button{
                                 
+//                                if var exercise = currentExercise{
+//                                    exercise.addSet.append(AddSetModel(lbs: "", reps: "", set: ""))
+//                                }
+                                
+//                                var createNewsSet = AddSetModel(lbs: "", reps: "", set: "")
+//                                exercise.addSet = createNewsSet
+                                
+//                           print("NewSett", exercise)
+//                           currentExercise = exercise
+//                           addSetToSelectedExercise()
+//                           exercise.addSet.append(AddSetModel(lbs: T##String, reps: T##String, set: T##String))
+//                           exercise.addSet(AddSetModel(lbs: "", reps: "", set: ""))
                             } label: {
-                                Image(systemName: "clock")
-                                    .imageScale(.medium)
+                                HStack{
+                                    Text("Add Set")
+                                    Image(systemName: "plus")
+                                }
                             }
-                            .frame(width: 25, height: 25)
-                            .background{
-                                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(Color.gray.opacity(0.1))
-                            }
+                            .padding(.top, 30)
+                            .padding(.trailing, 15)
                             
-                            // Edit Exercise Button
-                            Button{
-                                dataController.delete(exercise)
-                                dataController.save()
-                            } label: {
-                                Image(systemName: "trash")
-                                    .imageScale(.medium)
+                        }
+                        VStack{
+                            HStack(spacing: 40){
+                                Text("Set")
+                                    .font(.subheadline)
+                                
+                                Text("lbs")
+                                    .font(.subheadline)
+                                
+                                Text("Reps")
+                                    .font(.subheadline)
+                                
+                                Spacer()
+                                
+                                // Rest Timer Button
+                                Button{
+                                    
+                                } label: {
+                                    Image(systemName: "clock")
+                                        .imageScale(.medium)
+                                }
+                                .frame(width: 25, height: 25)
+                                .background{
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .fill(Color.gray.opacity(0.1))
+                                }
+                                
+                                // Edit Exercise Button
+                                Button{
+//                                    dataController.delete(exercise)
+//                                    dataController.save()
+                                } label: {
+                                    Image(systemName: "trash")
+                                        .imageScale(.medium)
+                                }
+                                .frame(width: 25, height: 25)
+                                .background{
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                        .fill(Color.gray.opacity(0.1))
+                                }
                             }
-                            .frame(width: 25, height: 25)
-                            .background{
-                                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(Color.gray.opacity(0.1))
+                            .padding(.top, 10)
+                            .padding(.horizontal, 20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            ForEach(exercise.wrappedValue.addSet, id: \.id){ item in
+                                HStack{
+                                    TextField(item.set , text: .constant(""))
+                                        .padding(6)
+                                        .keyboardType(.numberPad)
+                                        .frame(width: 50, height: 25)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                                        )
+                                    
+                                    TextField(item.lbs, text: .constant(""))
+                                        .padding(6)
+                                        .keyboardType(.numberPad)
+                                        .frame(width: 50, height: 25)
+                                        .background(
+                                          RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                                        )
+                                    
+                                    TextField(item.reps, text: .constant(""))
+                                        .padding(6)
+                                        .keyboardType(.numberPad)
+                                        .frame(width: 50, height: 25)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                                        )
+                                }
+                                .padding(.horizontal, 20)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+//                              .background(ternaryForBackground ? Color.green.opacity(0.3) : .clear)
                             }
                         }
-                        .padding(.top, 10)
-                        .padding(.horizontal, 20)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 140, alignment: .topLeading)
+                        .background(.white)
+                        .cornerRadius(10)
+                        .shadow(color: Color.gray.opacity(0.3) ,radius: 5, x: 0 , y: 2)
                     }
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 140, alignment: .topLeading)
-                    .background(.white)
-                    .cornerRadius(10)
-                    .shadow(color: Color.gray.opacity(0.3) ,radius: 5, x: 0 , y: 2)
                 }
             }
         }
@@ -312,28 +356,27 @@ struct CreateWorkoutSheet: View {
                // Create Workout
                 let getCurrentDate = Date()
                 let format = getCurrentDate.getFormattedDate(format: "MM-dd-yyyy")
-//                print("CurentDate", format)
+//              print("CurentDate", format)
                 
                 let workout = Workout(context: dataController.container.viewContext)
                 workout.name = workoutName
                 workout.creationDate = format
-//                workout.exercise = self.exercise
                 
+                
+//              workout.exercise = self.exercise
 //                for i in exercise.wrappedValue{
 //                    workout.exercise?.name = i.name
 //                }
                 
                 dataController.save()
                 
-                
                 dismiss()
                 
-            }label: {
+            } label: {
                 Text("Finish")
                     .font(.headline)
                     .frame(maxWidth: .infinity)
                     .frame(height: 50)
-                
             }
             .background(.green)
             .foregroundColor(.white)

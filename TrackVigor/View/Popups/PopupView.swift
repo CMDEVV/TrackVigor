@@ -87,6 +87,7 @@ struct CreateExercisePopup: CentrePopup{
                         // Save Context
                         let newExercise = ExerciseEntity(context: dataController.container.viewContext)
                         newExercise.name = self.name
+                        newExercise.id = UUID()
                         newExercise.bodyPart = self.selection
                         newExercise.instructions = instructions
                         newExercise.equipment = self.equipmentSelection
