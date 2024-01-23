@@ -9,6 +9,7 @@ import SwiftUI
 import MijickPopupView
 import SDWebImageSwiftUI
 import CoreData
+import RealmSwift
 
 enum ActiveExerciseAlert {
     case name,bodyPart,equipment
@@ -21,7 +22,7 @@ enum ImageType {
 struct CreateExercisePopup: CentrePopup{
     @Environment(\.managedObjectContext) var moc
     @EnvironmentObject var dataController : DataController
-    
+    let realm = try! Realm()
     
     @State var name: String = ""
     @State var instructions = [String]()
@@ -84,15 +85,27 @@ struct CreateExercisePopup: CentrePopup{
                         var strArray = [String]()
                         strArray.append(instructionText)
                         instructions = strArray
+                        
                         // Save Context
-                        let newExercise = ExerciseEntity(context: dataController.container.viewContext)
-                        newExercise.name = self.name
-                        newExercise.id = UUID()
-                        newExercise.bodyPart = self.selection
-                        newExercise.instructions = instructions
-                        newExercise.equipment = self.equipmentSelection
-                        newExercise.gifUrl = ""
-                        dataController.save()
+                        let newExercise = CreateExerciseRealmModel()
+                        try! realm.write{
+                            newExercise.name = self.name
+                            newExercise.bodyPart = self.selection
+                            newExercise.instructions.append(objectsIn: instructions)
+                            newExercise.equipment = self.equipmentSelection
+                            newExercise.gifUrl = ""
+                            realm.add(newExercise,update: .all)
+                        }
+                        
+                        // Save Context
+//                        let newExercise = ExerciseEntity(context: dataController.container.viewContext)
+//                        newExercise.name = self.name
+//                        newExercise.id = UUID()
+//                        newExercise.bodyPart = self.selection
+//                        newExercise.instructions = instructions
+//                        newExercise.equipment = self.equipmentSelection
+//                        newExercise.gifUrl = ""
+//                        dataController.save()
                       
                         dismiss()
                         

@@ -9,6 +9,7 @@ import SwiftUI
 import MijickPopupView
 import SDWebImageSwiftUI
 import CoreData
+import RealmSwift
 
 struct ExerciseModelTest: Identifiable{
     var id = UUID()
@@ -32,17 +33,19 @@ struct ExerciseSheet: View {
     
     @EnvironmentObject var dataController : DataController
     @Binding var selectedExercise: [String]
+    let realm = try! Realm()
 //    let fetchExercises : FetchRequest<ExerciseEntity>
     
-    @FetchRequest(
-        entity: ExerciseEntity.entity(),
-        sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]
-      ) var fetchExercises: FetchedResults<ExerciseEntity>
+//    @FetchRequest(
+//        entity: ExerciseEntity.entity(),
+//        sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]
+//      ) var fetchExercises: FetchedResults<ExerciseEntity>
     
 //    init(){
 //        fetchExercises = FetchRequest<ExerciseEntity>(entity: ExerciseEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \ExerciseEntity.name, ascending: false)])
 //        selectedExercise = [""]
 //    }
+    @State var searchText = String()
     
     @State var bodyPartModel = [BodyPartModel]()
     @State var exerciseBodyPart = [ExerciseBodyPart]()
@@ -67,6 +70,16 @@ struct ExerciseSheet: View {
     let row = [
             GridItem(.flexible())
         ]
+    
+    var filterData: [CreateExerciseRealmModel]{
+        if searchText.isEmpty{
+            return Array(realm.objects(CreateExerciseRealmModel.self))
+        }else{
+            return Array(realm.objects(CreateExerciseRealmModel.self).filter{ exercise in
+                return exercise.name.lowercased().contains(searchText.lowercased())
+            })
+        }
+    }
     
     
     var body: some View {
@@ -97,14 +110,13 @@ struct ExerciseSheet: View {
         
     }
     
-    func deleteExercise(at offsets: IndexSet){
-        for offset in offsets{
-//            let exercise = fetchExercises.wrappedValue[offset]
-            let exercise = fetchExercises[offset]
-            dataController.delete(exercise)
-        }
-        dataController.save()
-    }
+//    func deleteExercise(at offsets: IndexSet){
+//        for offset in offsets{
+//            let exercise = fetchExercises[offset]
+//            dataController.delete(exercise)
+//        }
+//        dataController.save()
+//    }
     
     @ViewBuilder
     func TabHeaderView() -> some View {
@@ -156,13 +168,14 @@ struct ExerciseSheet: View {
 //            }
 //            ForEach(exerciseBodyPart, id: \.id){ exercise in
             
-            ForEach(fetchExercises){ exercise in
+//            ForEach(fetchExercises){ exercise in
+            ForEach(filterData, id: \.id){ exercise in
                 
-                MultipleSelectionRow(name: exercise.name!, bodyPart: exercise.bodyPart!,equipment: exercise.equipment!,gifUrl: exercise.gifUrl!,instructions: exercise.instructions!, isSelected: self.selection.contains(exercise.name!)){
-                    if self.selection.contains(exercise.name!){
-                        self.selection.removeAll(where: {$0 == exercise.name!})
+                MultipleSelectionRow(name: exercise.name, bodyPart: exercise.bodyPart,equipment: exercise.equipment,gifUrl: exercise.gifUrl,instructions: Array(exercise.instructions), isSelected: self.selection.contains(exercise.name)){
+                    if self.selection.contains(exercise.name){
+                        self.selection.removeAll(where: {$0 == exercise.name})
                     } else {
-                        self.selection.append(exercise.name!)
+                        self.selection.append(exercise.name)
                     }
                 }
 //               .padding()

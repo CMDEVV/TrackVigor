@@ -7,11 +7,12 @@
 
 import SwiftUI
 import CoreData
+import RealmSwift
 
 struct WorkoutDetailView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var dataController : DataController
-    
+    let realm = try! Realm()
 
     let workout: Workout
 
@@ -20,8 +21,6 @@ struct WorkoutDetailView: View {
     var exercises : [Exercise]{
         workout.exercise?.allObjects as? [Exercise] ?? []
     }
-    
-  
     
     
     // String/Array Variables
@@ -107,13 +106,11 @@ struct WorkoutDetailView: View {
                 dataController.save()
                 print("Valueee", value)
             }
-        
-            
-            
+     
         }
-//            .padding(.top, 30)
+//          .padding(.top, 30)
             .padding(.horizontal, 15)
-//            .frame(maxWidth: .infinity, alignment: .leading)
+//          .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     
@@ -143,7 +140,6 @@ struct WorkoutDetailView: View {
                     }
                         
                         VStack{
-                            
 //                            HStack(alignment: .center, spacing: 25){
 //                                VStack(spacing: 15){
 //                                    Text("Set")
@@ -211,8 +207,8 @@ struct WorkoutDetailView: View {
 //
 //                                // Edit Exercise Button
 //                                Button{
-//                                    //                                dataController.delete(exercise)
-//                                    //                                dataController.save()
+//                                    // dataController.delete(exercise)
+//                                    // dataController.save()
 //                                } label: {
 //                                    Image(systemName: "trash")
 //                                        .imageScale(.medium)

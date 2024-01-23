@@ -8,8 +8,8 @@
 import Foundation
 import RealmSwift
 
-class WorkoutRealmModel: Object{
-    @Persisted(primaryKey: true) var id = 0
+class WorkoutRealmModel: Object, Identifiable{
+    @Persisted(primaryKey: true) var id: String
     @Persisted var date: String
     @Persisted var name: String
     @Persisted var exercises = List<ExerciseRealmModel>()

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import RealmSwift
 
 struct CreateWorkoutSheet: View {
     @Environment(\.dismiss) var dismiss
@@ -14,6 +15,9 @@ struct CreateWorkoutSheet: View {
 
     @EnvironmentObject var dataController : DataController
     
+    let realm = try! Realm()
+    
+//    @ObservedResults()
 //    let workout: Workout
 //
 //    var exercise : [Exercise] {
@@ -177,6 +181,8 @@ struct CreateWorkoutSheet: View {
                 .onChange(of: selectedExercise){ value in
                     let getCurrentDate = Date()
                     let formatDate = getCurrentDate.getFormattedDate(format: "MM-dd-yyyy")
+                    
+                    
                     
                     var modelOne = WorkoutModel(name: workoutName, creationDate: formatDate, exercises: [])
                     for exercise in value{
@@ -355,12 +361,19 @@ struct CreateWorkoutSheet: View {
             Button{
                // Create Workout
                 let getCurrentDate = Date()
-                let format = getCurrentDate.getFormattedDate(format: "MM-dd-yyyy")
+                let date = getCurrentDate.getFormattedDate(format: "MM-dd-yyyy")
+                
+                let workout = WorkoutRealmModel()
+                try! realm.write{
+                    workout.name = workoutName
+                    workout.date = date
+                    realm.add(workout, update: .all)
+                }
 //              print("CurentDate", format)
                 
-                let workout = Workout(context: dataController.container.viewContext)
-                workout.name = workoutName
-                workout.creationDate = format
+//                let workout = Workout(context: dataController.container.viewContext)
+//                workout.name = workoutName
+//                workout.creationDate = format
                 
                 
 //              workout.exercise = self.exercise
@@ -368,7 +381,7 @@ struct CreateWorkoutSheet: View {
 //                    workout.exercise?.name = i.name
 //                }
                 
-                dataController.save()
+//                dataController.save()
                 
                 dismiss()
                 

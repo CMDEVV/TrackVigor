@@ -7,9 +7,13 @@
 
 import SwiftUI
 import CoreData
+import RealmSwift
 
 struct WorkoutView: View {
     @EnvironmentObject var dataController: DataController
+    let realm = try! Realm()
+    
+    @ObservedResults(WorkoutRealmModel.self) var workouts
     // String Variables
     @State var workoutClicked: String = ""
     // Int Variables
@@ -23,12 +27,12 @@ struct WorkoutView: View {
 //    @State var workoutModel = WorkoutModelList.allWorkouts
     
     // Coredata Variables
-    let workouts: FetchRequest<Workout>
-
-    
-    init(){
-        workouts = FetchRequest<Workout>(entity: Workout.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Workout.creationDate, ascending: false)])
-    }
+//    let workouts: FetchRequest<Workout>
+//
+//    
+//    init(){
+//        workouts = FetchRequest<Workout>(entity: Workout.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Workout.creationDate, ascending: false)])
+//    }
     
     var body: some View {
         NavigationStack{
@@ -46,13 +50,7 @@ struct WorkoutView: View {
 //                    print("data", i.exercise?.)
 //                }
             }
-            .toolbar{
-                ToolbarItem(placement: .navigationBarLeading){
-                    Button("Add Sample Data") {
-                        dataController.sampleData()
-                    }
-                }
-            }
+           
 //            .toolbar{
 //                ToolbarItem(placement: .navigationBarTrailing){
 //                    Button{
@@ -72,19 +70,20 @@ struct WorkoutView: View {
     @ViewBuilder
     func WorkoutList() -> some View {
         VStack{
-            if workouts.wrappedValue.isEmpty{
+            if workouts.isEmpty{
                 Text("No exercises found")
                     .font(.title3.bold())
             }
             
             // MARK: Should be able to fix getting the correct workout by adding NavigationLink
-            ForEach(workouts.wrappedValue){ workout in
+            ForEach(workouts, id: \.id){ workout in
+                
               Button{
                     goToDetail = true
                 } label: {
                     VStack(alignment: .leading, spacing: 10){
                         HStack{
-                            Text(workout.name ?? "")
+                            Text(workout.name)
                                 .font(.headline)
                             
                             Spacer()
@@ -97,8 +96,8 @@ struct WorkoutView: View {
                                     .font(.subheadline)
                                 
                                 Button{
-                                    dataController.delete(workout)
-                                    dataController.save()
+//                                    dataController.delete(workout)
+//                                    dataController.save()
                                 } label: {
                                     Image(systemName: "trash")
                                         .padding()
@@ -112,7 +111,7 @@ struct WorkoutView: View {
                         }
                        
                         
-                        Text("\(workout.creationDate ?? "")")
+                        Text(workout.date)
                             .font(.caption)
                     }
                     .padding()
@@ -122,7 +121,7 @@ struct WorkoutView: View {
                     .cornerRadius(10)
                     .shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
                     .onTapGesture {
-                        workoutClicked = workout.name ?? ""
+                        workoutClicked = workout.name
                         goToDetail = true
                     }
                     
